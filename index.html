@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#000">
+    <title>Space-Quiz|DreamUP</title>
+    <meta name="description" content="Js-quiz">
+    <meta name="keywords" content="space">
+    <link rel="stylesheet" type="text/css" href="css/style.min.css">
+    <link rel="shortcut icon" href="img/cookie.png" type="image/png">
+  </head>
+  <body>
+    <section class="game-level game-level--first">
+      <div class="game-level__start">
+        <div class="game-level__start-text">TIME TO START<span class="game-level__start-count">3</span></div>
+      </div>
+      <div class="game-level__decor">
+        <div class="decor-star"></div>
+      </div>
+      <canvas class="game-level__canvas"></canvas>
+    </section>
+    <div class="game-overlay">
+      <div class="game-overlay__warn">
+        <h1 class="warn__title"><strong>Game Over</strong></h1>
+        <h2 class="warn__score">Your score:<strong>0</strong></h2><a class="warn__btn">Play Again?</a>
+      </div>
+    </div>
+    <div class="game__btn-music btn--musicoff"></div>
+    <div class="game__btn-back btn--back"></div>
+    <section class="game-interface">
+      <div class="game-interface_life">LIFE</div>
+      <div class="game-interface_score">SCORE<span class="score-count">0</span></div>
+    </section>
+    <section class="game-intro">
+      <div class="game-intro__info">
+        <div class="info-overlay"></div>
+        <div class="info-content">
+          <div class="info-content__btn-close"></div>
+          <h2 class="info-content__title"><strong>Howdy</strong>, I'm a dialog box</h2>
+          <p class="info-content__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, ipsum, reiciendis. Voluptatibus iste repellat, aliquid saepe repellendus fugiat nostrum atque quos, iure dolorem aut beatae. Saepe alias, nihil magni culpa.</p>
+        </div>
+      </div>
+      <div class="game__btn-music btn--musicoff"></div>
+      <div class="game-intro__start">
+        <div class="start__title">ADVENTURES OF SPACE RACCOON</div>
+        <div class="start__act">
+          <div class="start__act-btn btn-play">PLAY</div>
+          <div class="start__act-btn btn-info">INFO</div>
+        </div>
+      </div>
+      <div class="game-intro__decor">
+        <div class="decor-star"></div>
+        <div class="decor-triangle"></div>
+      </div>
+      <div class="game-intro__footer">
+        <div class="footer__social">
+          <ul class="social-block">
+            <li class="social-block__link"><a href="" class="link--github"></a></li>
+          </ul>
+        </div>
+        <div class="footer__copyright"><a href="" class="copyright__link">GAME BY DREAMUP</a></div>
+      </div>
+    </section>
+    <audio loop="" autoplay="" class="game-music">
+      <source src="audio/Start.wav">
+    </audio>
+    <script src="js/assets.js"></script>
+    <script src="js/starfield.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/start.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
