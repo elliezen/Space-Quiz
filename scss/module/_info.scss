@@ -1,0 +1,127 @@
+/* Info*/
+
+.game-intro__info {
+  @include absolute();
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.info-overlay {
+  @extend .game-intro__info;
+  background: rgba(55, 58, 71, 0.5);
+  visibility: hidden;
+  z-index: 500;
+}
+
+.info--open .info-overlay {
+	visibility: visible;
+	pointer-events: none;
+}
+
+.info-content {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+	background: white;
+  color: $dark-color;
+	padding: 2em;
+	text-align: $text-align;
+	position: relative;
+	z-index: 1000;
+	visibility: hidden;
+}
+
+.info-content__btn-close {
+  -webkit-box-flex: 1px;
+      -ms-flex: 1px;
+          flex: 1px;
+  position: relative;
+  height: 1.5em;
+  width: 1.5em;
+  cursor: pointer;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  content: "";
+  padding: 1em;
+  margin: 0;
+
+  &::before{
+    @include absolute();
+    top:-50%;
+    left:50%;
+    height: 200%;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+    border: 2px solid $dark-color;
+  }
+
+  &::after{
+    @include absolute();
+    top:-50%;
+    left:50%;
+    height: 200%;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+    border: 2px solid $dark-color;
+  }
+}
+
+.info--open .info-content,
+.info--close .info-content {
+	-webkit-animation-duration: 0.3s;
+	        animation-duration: 0.3s;
+	-webkit-animation-fill-mode: forwards;
+	        animation-fill-mode: forwards;
+}
+
+.info--open .info-content {
+	-webkit-animation-name: modal-open;
+	        animation-name: modal-open;
+  visibility: visible;
+}
+
+.info--close .info-content {
+	-webkit-animation-name: modal-close;
+	        animation-name: modal-close;
+  visibility: hidden;
+}
+
+.info-content__title {
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+	font-size: 2em;
+	padding: 0 0 2em;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.info-content__text {
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+	padding: 1em 1em 3em 1em;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+/* Info end*/

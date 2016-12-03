@@ -1,0 +1,214 @@
+/* Intro*/
+
+.game-intro {
+  position: relative;
+  height: 100vh;
+  width:100%;
+  @include lingradient($primary-color, $secondary-color);
+}
+
+.game-intro__start {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.start__title {
+  font-size: $font-size*4;
+  margin-bottom: 30px;
+  text-align: $text-align;
+  color: $text-color;
+  -webkit-box-flex:1;
+      -ms-flex:1;
+          flex:1;
+}
+
+.start__act {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.start__act-btn {
+  padding: $btn-padding;
+	border-radius: $btn-border-radius;
+	background: $btn-color;
+	color: $text-color;
+  -ms-flex-preferred-size: 24%;
+      flex-basis: 24%;
+  margin: 0em 2em;
+  cursor: pointer;
+  position: relative;
+	-webkit-transition: background-color 0.3s, color 0.3s;
+	transition: background-color 0.3s, color 0.3s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+
+  &::before, &::after{
+    @include absolute();
+    top:-20px;
+    left:-20px;
+    bottom:-20px;
+    right:-20px;
+    border-radius: $btn-border-radius;
+    background: inherit;
+    z-index: -1;
+  	opacity: 0.7;
+  	-webkit-transform: scale3d(0.8, 0.5, 1);
+  	transform: scale3d(0.8, 0.5, 1);
+  }
+
+  &:hover, &:active{
+    -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  	transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+    background-color: $btn-color;
+  	color: #ECEFF1;
+  	-webkit-animation: btn-click 0.3s forwards;
+  	animation: btn-click 0.3s forwards;
+
+    &::before{
+      -webkit-animation: btn-click-2 0.3s 0.3s forwards;
+      animation: btn-click-2 0.3s 0.3s forwards;
+    }
+  }
+}
+
+.divider {
+  visibility: hidden;
+}
+
+.game-intro__decor {
+
+}
+
+.decor-star,.decor-cloud,.decor-triangle {
+  @include absolute();
+  right:0;
+  bottom:0;
+  width: 100%;
+  height: 100%;
+}
+
+.decor-star{
+  background: transparent url(../img/stars.png) repeat top center;
+  z-index: 0;
+}
+
+.decor-cloud {
+  background: transparent url(../img/clouds.png) repeat top center;
+  z-index: 0;
+  -webkit-animation: move-clouds-back 200s linear infinite;
+  animation: move-clouds-back 200s linear infinite;
+}
+
+.cloud-on {
+  -webkit-animation: cloud-opacity 15s linear;
+  animation: cloud-opacity 15s linear;
+}
+
+.decor-triangle {
+  background: transparent url(../img/triangle.png) repeat top center;
+  z-index: 3;
+  -webkit-animation: move-triangle-back 200s linear infinite;
+  animation: move-triangle-back 200s linear infinite;
+}
+
+.game-intro__footer {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  min-height: 10vh;
+  bottom: 0;
+  left: 0;
+  background: transparent;
+  z-index: 100;
+}
+
+.footer__social {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: left;
+  padding-left: 2%;
+  padding-top:2%;
+}
+
+.social-block {
+  display: block;
+}
+
+.social-block__link {
+  display: inline-block;
+}
+
+.link--github {
+  display: block;
+  width:32px;
+  height: 32px;
+  opacity: 0.6;
+  background: transparent url(../img/github.png) repeat top center;
+
+  &:hover, &:active{
+    opacity: 1;
+  }
+}
+
+.footer__copyright {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: right;
+  padding-right: 2%;
+  padding-top:2%;
+  color:#C04848;
+  opacity:0.7;
+
+  &:hover, &:active{
+  opacity:1;
+  }
+}
+
+.copyright__link {
+  vertical-align: middle;
+  display: block;
+  padding: 1%;
+}
+
+.game__btn-music {
+  @include absolute();
+  top:2%;
+  left:1%;
+  display: inline-block;
+  z-index: 100;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  opacity: 0.5;
+
+  &:hover, &:active{
+    opacity: 1;
+  }
+}
+
+.btn--musicon{
+  background: transparent url(../img/musicon.png) no-repeat;
+}
+
+.btn--musicoff{
+  background: transparent url(../img/musicoff.png) no-repeat;
+}
+/* Intro-end*/

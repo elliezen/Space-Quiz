@@ -1,0 +1,41 @@
+html {
+    box-sizing: border-box;
+}
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+    margin: 0 auto;
+    padding: 0;
+}
+body {
+    font-size: $font-size-base;
+    font-family: $font-family;
+    text-transform: $font-transform;
+    text-align: $text-align;
+    font-weight: 400;
+    letter-spacing: $spacing;
+    color: $text-color;
+    background: transparent;
+}
+a {
+    text-decoration: none;
+    color: #eee;
+    outline: none;
+    cursor:pointer;
+}
+h1{
+  font-size: $font-size*2;
+}
+h2{
+  font-size: $font-size*1.5;
+}
+p{
+  font-size: $font-size;
+}
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}

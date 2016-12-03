@@ -1,0 +1,69 @@
+/* Prefixer*/
+/*/ @author Hugo Giraudel*/
+@mixin prefix($property, $value, $prefixes: ()) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+  #{$property}: $value;
+}
+
+/* Usage*/
+/* .selector {*/
+/*   @include prefix(transform, rotate(45deg), webkit ms);*/
+/* }*/
+
+
+@mixin absolute(){
+  position: absolute;
+  display: block;
+  content: "";
+  top: 0;
+  left: 0;
+}
+
+@mixin lingradient($top, $bottom){
+    background: $top;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom));
+    background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%);
+    background: linear-gradient(to bottom,  $top 0%,$bottom 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 );
+}
+
+/* Usage*/
+/* .button{*/
+/*     @include linearGradient(#fff, #000);*/
+/* }*/
+
+
+@mixin breakpoint($size) {
+    @media only screen and (max-width : $size + px) { @content; }
+}
+
+/* Usage*/
+/* .main{*/
+/*     width:1100px;*/
+/*     @include breakpoint(940){ width:100%; }*/
+/* }*/
+
+@mixin link ($link, $visit, $hover, $active) {
+  a {
+    color: $link;
+    &:visited {
+      color: $visit;
+    }
+    &:hover {
+      color: $hover;
+    }
+    &:active {
+      color: $active;
+    }
+  }
+}
+
+/* Usage*/
+/* @include link(white, blue, green, red);*/
+
+@mixin btn ($btn-padding: 1em 4em, $btn-border-radius: 50px) {
+  padding: $btn-padding;
+  border-radius: $btn-border-radius
+}
