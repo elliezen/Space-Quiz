@@ -37,6 +37,7 @@ class Game {
 
     this.score = 0;
     this.scoreDiv = document.querySelector('.score-count');
+    this.modal = document.querySelector('.game-overlay');
     this.modalScore = document.querySelector('.warn__score').firstElementChild;
     this.modalWarnBtn = document.querySelector('.warn__btn');
     this.lives = 4;
@@ -46,12 +47,9 @@ class Game {
   // creates main objects and initiates game loop
   init() {
     this.starfield = new Starfield(this);
-
     this.quiz = new Quiz(this);
     this.quiz.newQuest();
-
     this.player = new Player(this);
-
     this.canvas.addEventListener('mousemove', (function(e) {
       this.getMousePosition(e);
     }).bind(this));
@@ -87,8 +85,7 @@ class Game {
       this.lives--;
       this.livesDiv.innerHTML = (this.lives == 3) ? 'lif' :
         (this.lives == 2) ? 'li' : 'l';
-      if (this.lives <= 0) {
-        this.livesDiv.innerHTML = '';
+      if (this.lives == 0) {
         this.gameOver();
       }
     } else {
@@ -100,6 +97,13 @@ class Game {
 
   // announce end of game and resets properties
   gameOver() {
+
+    this.modal.classList.add('overlay--active');
+    this.modalWarnBtn.addEventListener('click', (function() {
+      this.init();
+    }).bind(this));
+
+    this.starfield = new Starfield(this);
     this.time = false;
     this.now = (new Date()).getTime();
     this.last = (new Date()).getTime() - 1;
@@ -109,16 +113,10 @@ class Game {
       x: this.width / 2,
       y: this.height / 2
     };
-    this.player = null;
     this.quiz = null;
     this.score = 0;
     this.lives = 4;
     this.livesDiv.innerHTML = 'life';
-
-    document.querySelector('.game-overlay').classList.toggle('overlay--active');
-    this.modalWarnBtn.addEventListener('click', (function() {
-      this.init();
-    }).bind(this));
   }
 
   // creates new delta and calls update / render function
