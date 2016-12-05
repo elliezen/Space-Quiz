@@ -87,7 +87,8 @@ class Game {
       this.lives--;
       this.livesDiv.innerHTML = (this.lives == 3) ? 'lif' :
         (this.lives == 2) ? 'li' : 'l';
-      if (this.lives == 0) {
+      if (this.lives <= 0) {
+        this.livesDiv.innerHTML = '';
         this.gameOver();
       }
     } else {

@@ -24,7 +24,7 @@ class Quiz {
   newQuest() {
     let num = this.questCount;
 
-    if (this.questCount == this.quizBox.length) {
+    if (this.questCount == this.quizBox.length - 1) {
       this.game.gameOver();
     }
 
