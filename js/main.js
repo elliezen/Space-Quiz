@@ -31,14 +31,30 @@
 
 document.addEventListener('DOMContentLoaded', start.init());
 
+// Initialize Firebase
+const config = {
+  apiKey: 'AIzaSyCuB3I2Q3RHSgGMzU6BNhz-0UI8d5keI8Y',
+  authDomain: 'space-quiz-game.firebaseapp.com',
+  databaseURL: 'https://space-quiz-game.firebaseio.com',
+  storageBucket: 'space-quiz-game.appspot.com',
+  messagingSenderId: '944409851947'
+};
+firebase.initializeApp(config);
+
+// Create referances
+const quizObjectRef = firebase.database().ref().child('object');
+
 // init new assets object and call main function only after all images loading
 const assets = new Assets([
   'img/raccoon.png',
   'img/cookie.png'
-], main);
+], function() {
+  quizObjectRef.once('value').then(main);
+});
 
-// Main game function.
-function main() {
-  const game = new Game(assets);
+function main(snap) {
+  let data = snap.val();
+  const game = new Game(data, assets);
+
   game.init();
 }

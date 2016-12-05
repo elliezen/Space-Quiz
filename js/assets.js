@@ -30,4 +30,5 @@ class Assets {
   getImage(img) {
     return this.images[img];
   }
+
 }

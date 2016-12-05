@@ -10,35 +10,7 @@ class Quiz {
 
     this.fontSize = parseInt(window.getComputedStyle(document.body).fontSize);
 
-    this.quizBox = [{
-      question: 'typeof NaN',
-      answers: ['number', 'NaN', 'object', 'boolean', 'undefined'],
-      correct: 'number'
-    }, {
-      question: 'the owner of "JavaScript" trademark',
-      answers: ['Oracle', 'W3C', 'MIT', 'Nombas', 'Netscape'],
-      correct: 'Oracle'
-    }, {
-      question: 'the year JS first appeared',
-      answers: ['1995', '1990', '1992', '2001', '1985'],
-      correct: '1995'
-    }, {
-      question: 'JS typing discipline',
-      answers: ['duck', 'camel', 'eagle', 'owl', 'wolf'],
-      correct: 'duck'
-    }, {
-      question: 'not JS framework is',
-      answers: ['Django', 'Ember', 'Polymer', 'Vue', 'Backbone'],
-      correct: 'Django'
-    }, {
-      question: '(function() { console.log("hello"); })();',
-      answers: ['hello', 'Error', 'false', 'null', 'undefined'],
-      correct: 'hello'
-    }, {
-      question: 'typeof "null"',
-      answers: ['string', 'null', 'NaN', 'object', 'undefined'],
-      correct: 'string'
-    }];
+    this.quizBox = this.game.quizBox;
 
     this.quizBox = shuffleArray(this.quizBox);
     this.question = '';

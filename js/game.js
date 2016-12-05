@@ -6,7 +6,7 @@
 
 class Game {
 
-  constructor(assets) {
+  constructor(data, assets) {
     this.canvas = document.querySelector('.game-level__canvas');
     this.ctx = this.canvas.getContext('2d');
     this.canvas.width = document.documentElement.scrollWidth;
@@ -14,7 +14,9 @@ class Game {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
+    this.quizBox = data;
     this.assets = assets;
+
     this.raccoon = this.assets.getImage('raccoon.png');
     this.cookie = this.assets.getImage('cookie.png');
 
@@ -44,9 +46,12 @@ class Game {
   // creates main objects and initiates game loop
   init() {
     this.starfield = new Starfield(this);
+
     this.quiz = new Quiz(this);
     this.quiz.newQuest();
+
     this.player = new Player(this);
+
     this.canvas.addEventListener('mousemove', (function(e) {
       this.getMousePosition(e);
     }).bind(this));
@@ -94,7 +99,6 @@ class Game {
 
   // announce end of game and resets properties
   gameOver() {
-    this.starfield = new Starfield(this);
     this.time = false;
     this.now = (new Date()).getTime();
     this.last = (new Date()).getTime() - 1;
