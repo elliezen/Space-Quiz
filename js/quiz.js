@@ -34,11 +34,13 @@ class Quiz {
     this.correct = quest.correct;
     quest.answers = shuffleArray(quest.answers);
 
-    // devide the canvas into 7 paths and draw answers in each of them
-    for (let i = 0; i < quest.answers.length; i++) {
+    let aLength = quest.answers.length;
+
+    // devide the canvas into paths and draw answers in each of them
+    for (let i = 0; i < aLength; i++) {
       let wordWidth = quest.answers[i].length * this.fontSize;
-      let maxX = (i + 2) * this.width / 7 - wordWidth;
-      let minX = (i + 1) * this.width / 7 + wordWidth;
+      let maxX = (i + 2) * this.width / (aLength + 2) - wordWidth;
+      let minX = (i + 1) * this.width / (aLength + 2) + wordWidth;
       let x = Math.random() * (maxX - minX) + minX;
       this.answers[i] = new Block(quest.answers[i], x, 0);
     };

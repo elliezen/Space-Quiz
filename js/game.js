@@ -36,12 +36,14 @@ class Game {
     this.quiz = null;
 
     this.score = 0;
+    this.lives = 4;
+
+    this.livesDiv = document.querySelector('.game-interface_life');
     this.scoreDiv = document.querySelector('.score-count');
+
     this.modal = document.querySelector('.game-overlay');
     this.modalScore = document.querySelector('.warn__score').firstElementChild;
     this.modalWarnBtn = document.querySelector('.warn__btn');
-    this.lives = 4;
-    this.livesDiv = document.querySelector('.game-interface_life');
   }
 
   // creates main objects and initiates game loop
@@ -50,9 +52,11 @@ class Game {
     this.quiz = new Quiz(this);
     this.quiz.newQuest();
     this.player = new Player(this);
+
     this.canvas.addEventListener('mousemove', (function(e) {
       this.getMousePosition(e);
     }).bind(this));
+    
     this.loop = window.requestAnimationFrame((function() {
       this.gameloop();
     }).bind(this));
