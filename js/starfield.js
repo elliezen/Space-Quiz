@@ -41,8 +41,10 @@ class Starfield {
   }
 }
 
-function Star(x, y, size) {
-  this.x = x;
-  this.y = y;
-  this.size = size;
+class Star {
+  constructor(x, y, size) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+  }
 }
