@@ -1,35 +1,69 @@
+import Player from './Player';
+import Quiz from './Quiz';
+import Starfield from './Starfield';
+
 'use strict';
 
 /**
  * Class representing the main logic for the game and
  * holding all objects and data.
  */
-class Game {
+export default class Game {
   /**
+   * @param {HTMLCanvasElement} canvas The canvas dom element.
    * @param {Object[]} data The data with game quiz uploaded from database.
    * @param {Object[]} assets The images required for the game.
    */
-  constructor(data, assets) {
+  constructor({
+    canvas,
+    data,
+    assets
+  }) {
     // assign base properties
-    this.canvas = document.querySelector('.game-level__canvas');
+    this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = document.documentElement.scrollWidth;
-    this.canvas.height = document.documentElement.clientHeight;
+    this.canvas.width = document.querySelector('.game-level').scrollWidth;
+    this.canvas.height = document.querySelector('.game-level').clientHeight;
+
     this.width = this.canvas.width;
     this.height = this.canvas.height;
 
-    this.quizBox = data;
+    this.data = data;
     this.assets = assets;
 
     this.raccoon = this.assets.getImage('raccoon.png');
     this.cookie = this.assets.getImage('cookie.png');
 
-    this.time = false;
+    this.$startBtn = document.querySelector('.btn-play');
 
-    this.now = (new Date()).getTime();
-    this.last = (new Date()).getTime() - 1;
+    this.$livesDiv = document.querySelector('.game-interface_life');
+    this.$scoreDiv = document.querySelector('.score-count');
+
+    this.$modal = document.querySelector('.game-overlay');
+    this.$modalScore = document.querySelector('.warn__score').firstElementChild;
+    this.$modalWarnBtn = document.querySelector('.warn__btn');
+  }
+
+  /** Reset properties and start the game. */
+  start() {
+    // reset properties
+    this._setVal();
+    this._init();
+  }
+
+  _setVal() {
+    this._time = false;
+    this._isOver = false;
+
+    // properties storing main game objects
+    this._player = null;
+    this._quiz = null;
+    this._starfield = null;
+
+    this._now = (new Date()).getTime();
+    this._last = (new Date()).getTime() - 1;
     this.delta = 1;
-    this.loop = null;
+    this._loop = null;
 
     // the object of cursor position
     this.cursor = {
@@ -37,35 +71,25 @@ class Game {
       y: this.height / 2
     };
 
-    // properties storing main game objects
-    this.player = null;
-    this.quiz = null;
-
-    this.score = 0;
-    this.lives = 4;
-
-    this.livesDiv = document.querySelector('.game-interface_life');
-    this.scoreDiv = document.querySelector('.score-count');
-
-    this.modal = document.querySelector('.game-overlay');
-    this.modalScore = document.querySelector('.warn__score').firstElementChild;
-    this.modalWarnBtn = document.querySelector('.warn__btn');
+    this._score = 0;
+    this._lives = 4;
+    this.$livesDiv.innerHTML = 'life';
   }
 
   /** Create main objects and initiates game loop. */
-  init() {
-    this.starfield = new Starfield(this);
-    this.quiz = new Quiz(this);
-    this.quiz.newQuest();
-    this.player = new Player(this);
+  _init() {
+    this._starfield = new Starfield(this);
+    this._quiz = new Quiz(this);
+    this._quiz.newQuest();
+    this._player = new Player(this);
 
     // create mousemovement event to have the current mouse position
     this.canvas.addEventListener('mousemove', (function(e) {
-      this.getMousePosition(e);
+      this._getMousePosition(e);
     }).bind(this));
 
-    this.loop = window.requestAnimationFrame((function() {
-      this.gameloop();
+    this._loop = requestAnimationFrame((function() {
+      this._gameloop();
     }).bind(this));
   }
 
@@ -73,7 +97,7 @@ class Game {
    * Calculate the current mouse position inside the canvas.
    * @param {MouseEvent} event
    */
-  getMousePosition(event) {
+  _getMousePosition(event) {
     let nx = 0;
     let ny = 0;
     if (event.pageX) {
@@ -99,72 +123,67 @@ class Game {
    */
   getProgress(progress) {
     if (!progress) {
-      this.lives--;
-      this.livesDiv.innerHTML = (this.lives == 3) ? 'lif' :
-        (this.lives == 2) ? 'li' : 'l';
-      if (this.lives == 0) {
+      this._lives--;
+      this.$livesDiv.innerHTML = (this.lives === 3) ? 'lif' :
+        (this._lives === 2) ? 'li' :
+        (this._lives === 1) ? 'l' : ' ';
+      if (this._lives === 3) {
         this.gameOver();
       }
     } else {
-      this.score++;
-      this.scoreDiv.innerHTML = this.score;
-      this.modalScore.innerHTML = this.score;
+      this._score++;
+      this.$scoreDiv.innerHTML = this._score;
+      this.$modalScore.innerHTML = this._score;
     }
   }
 
-  /** Show game over modal window and resets game properties. */
+  /** Show game over modal window and clear game objects. */
   gameOver() {
-    this.modal.classList.add('overlay--active');
-    this.modalWarnBtn.addEventListener('click', (function() {
-      this.init();
-    }).bind(this));
+    this.$modal.classList.add('overlay--active');
+    this._isOver = true;
 
-    this.starfield = new Starfield(this);
-    this.time = false;
-    this.now = (new Date()).getTime();
-    this.last = (new Date()).getTime() - 1;
-    this.delta = 1;
-    this.loop = null;
-    this.cursor = {
-      x: this.width / 2,
-      y: this.height / 2
-    };
-    this.quiz = null;
-    this.score = 0;
-    this.lives = 4;
-    this.livesDiv.innerHTML = 'life';
+    this.ctx.clearRect(0, 0, this.width, this.height);
+
+    this._starfield = null;
+    this._quiz = null;
+    this._player = null;
+
+    this._loop = null;
   }
 
   /**
    * Create new delta, calls update and render functions,
    * calls itself again on completion.
    */
-  gameloop() {
-    // create new delta value
-    this.setDelta();
-    // calculate new data
-    this.update();
-    // render it to the canvas
-    this.render();
-    // call this function again
-    this.loop = window.requestAnimationFrame((function() {
-      this.gameloop();
-    }).bind(this));
+  _gameloop() {
+    if (!this._isOver) {
+      // create new delta value
+      this._setDelta();
+      // calculate new data
+      this._update();
+      // render it to the canvas
+      this._render();
+      // call this function again
+      this.loop = requestAnimationFrame((function() {
+        this._gameloop();
+      }).bind(this));
+    }
   }
 
   /** Call all update functions needed for game. */
-  update() {
-    this.starfield.update(this.delta);
-    this.quiz.update(this.delta);
-    this.player.update(this.delta);
+  _update() {
+    this._starfield.update(this.delta);
+    this._quiz.update(this.delta);
+    this._player.update(this.delta);
+
   }
 
   /** Call all rendering functions needed for game. */
-  render() {
+  _render() {
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.starfield.render(this.ctx);
-    this.quiz.render(this.ctx);
-    this.player.render(this.ctx);
+    this._starfield.render(this.ctx);
+    this._quiz.render(this.ctx);
+    this._player.render(this.ctx);
     // render cookie at mouse position
     this.ctx.drawImage(this.cookie, this.cursor.x - 10, this.cursor.y - 10);
   }
@@ -173,10 +192,10 @@ class Game {
    * Recalculate new delta value based on the current time and
    * the last time called to make precise time based animations.
    */
-  setDelta() {
-    this.now = (new Date()).getTime();
-    this.delta = (this.now - this.then) / 1000;
-    this.then = this.now;
+  _setDelta() {
+    this._now = (new Date()).getTime();
+    this.delta = (this._now - this._then) / 1000;
+    this._then = this._now;
   }
 
 }

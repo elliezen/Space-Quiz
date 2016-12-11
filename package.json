@@ -1,0 +1,14 @@
+{
+  "name": "space-quiz",
+  "version": "0.0.0",
+  "description": "HTML5 canvas quiz game using pure JavaScript",
+  "author": "Liza Kobrazova <lizakobrazova@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/elliepooh/elliepooh.github.io",
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2016": "^6.16.0",
+    "webpack": "^1.14.0"
+  }
+}

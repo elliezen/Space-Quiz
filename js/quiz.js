@@ -1,33 +1,33 @@
 'use strict';
 
 /** Class representing a quiz. */
-class Quiz {
+export default class Quiz {
   /**
    * @param {Object} game Game instance.
    */
   constructor(game) {
     // assign game instance to local property
-    this.game = game;
+    this._game = game;
 
-    this.width = this.game.width;
-    this.height = this.game.height;
+    this._width = this._game.width;
+    this._height = this._game.height;
     // basic falling text speed
-    this.speed = 60;
-    this.questCount = 0;
+    this._speed = 60;
+    this._questCount = 0;
     // body element font-size
-    this.fontSize = parseInt(window.getComputedStyle(document.body).fontSize);
+    this._fontSize = parseInt(window.getComputedStyle(document.body).fontSize);
     // array with quiz from database
-    this.quizBox = this.game.quizBox;
+    this._quizBox = this._game.data;
     // shuffle quiz array
-    this.quizBox = shuffleArray(this.quizBox);
+    this._quizBox = shuffleArray(this._quizBox);
     // current question
-    this.question = '';
-    this.qWidth = 0;
+    this._question = '';
+    this._qWidth = 0;
     // current answers array
-    this.answers = [];
-    this.aWidth = 0;
+    this._answers = [];
+    this._aWidth = 0;
     // correct answer
-    this.correct = '';
+    this._correct = '';
 
   }
 
@@ -36,31 +36,33 @@ class Quiz {
    * from quiz box.
    */
   newQuest() {
+    // clear answers field
+    this._answers = [];
     // count the number of quiz
-    let num = this.questCount;
+    let num = this._questCount;
     // finish the game if there are no more questions
-    if (this.questCount >= this.quizBox.length - 1) {
-      this.game.gameOver();
+    if (this._questCount >= this._quizBox.length) {
+      this._game.gameOver();
     }
 
-    let quest = this.quizBox[num];
-    this.question = new Block(quest.question, this.width / 2, 0);
+    let quest = this._quizBox[num];
+    this._question = new Block(quest.question, this._width / 2, 0);
 
-    this.correct = quest.correct;
+    this._correct = quest.correct;
     quest.answers = shuffleArray(quest.answers);
 
     let aLength = quest.answers.length;
 
     // devide the canvas into paths and draw answers in each of them
     for (let i = 0; i < aLength; i++) {
-      let wordWidth = quest.answers[i].length * this.fontSize;
-      let maxX = (i + 2) * this.width / (aLength + 2) - wordWidth;
-      let minX = (i + 1) * this.width / (aLength + 2) + wordWidth;
+      let wordWidth = quest.answers[i].length * this._fontSize;
+      let maxX = (i + 2) * this._width / (aLength + 2) - wordWidth;
+      let minX = (i + 1) * this._width / (aLength + 2) + wordWidth;
       let x = Math.random() * (maxX - minX) + minX;
-      this.answers[i] = new Block(quest.answers[i], x, -this.fontSize);
+      this._answers[i] = new Block(quest.answers[i], x, -this._fontSize);
     };
     // the number of next question
-    this.questCount++;
+    this._questCount++;
   }
 
   /**
@@ -75,13 +77,13 @@ class Quiz {
       return;
     }
 
-    if (this.question.y < (this.height - this.fontSize * 3)) {
-      this.question.y += Math.floor(delta * this.speed * 2);
+    if (this._question.y < (this._height - this._fontSize * 3)) {
+      this._question.y += Math.floor(delta * this._speed * 2);
     } else {
-      for (let i = 0; i < this.answers.length; i++) {
-        let answer = this.answers[i];
-        answer.y += delta * this.speed;
-        this.checkAnswer(answer);
+      for (let i = 0; i < this._answers.length; i++) {
+        let answer = this._answers[i];
+        answer.y += delta * this._speed;
+        this._checkAnswer(answer);
       }
     }
   }
@@ -93,15 +95,15 @@ class Quiz {
   render(ctx) {
     ctx.fillStyle = '#fff';
     ctx.font = 'small-caps 3em Righteous';
-    this.qWidth = ctx.measureText(this.question.text).width;
-    ctx.fillText(this.question.text, this.question.x - this.qWidth / 2, this.question.y);
+    this._qWidth = ctx.measureText(this._question.text).width;
+    ctx.fillText(this._question.text, this._question.x - this._qWidth / 2, this._question.y);
 
-    for (let i = 0; i < this.answers.length; i++) {
-      let answer = this.answers[i];
+    for (let i = 0; i < this._answers.length; i++) {
+      let answer = this._answers[i];
       ctx.save();
       ctx.fillStyle = '#fff';
       ctx.font = 'small-caps 2em Righteous';
-      this.aWidth = ctx.measureText(answer.text).width;
+      this._aWidth = ctx.measureText(answer.text).width;
       ctx.fillText(answer.text, answer.x, Math.floor(answer.y));
       ctx.restore();
     };
@@ -113,18 +115,18 @@ class Quiz {
    * @param {string} answer Current answer from answers array.
    * @return {string} The img src.
    */
-  checkAnswer(answer) {
-    if ((this.game.cursor.x > answer.x) &&
-      (this.game.cursor.x < answer.x + this.aWidth) &&
-      (this.game.cursor.y > answer.y) &&
-      (this.game.cursor.y < answer.y + this.fontSize)) {
-      let progress = answer.text === this.correct ? true : false;
-      this.game.getProgress(progress);
+  _checkAnswer(answer) {
+    if ((this._game.cursor.x > answer.x) &&
+      (this._game.cursor.x < answer.x + this._aWidth) &&
+      (this._game.cursor.y > answer.y) &&
+      (this._game.cursor.y < answer.y + this._fontSize)) {
+      let progress = answer.text === this._correct ? true : false;
+      this._game.getProgress(progress);
       this.newQuest();
     };
 
     //	If the answers have moved from the bottom of the screen, spawn new quest.
-    if (answer.y > this.height) {
+    if (answer.y > this._height) {
       this.newQuest();
     }
   }

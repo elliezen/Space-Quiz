@@ -1,35 +1,12 @@
+import Assets from './Assets';
+import Game from './Game';
+import UI from './UI';
+
 'use strict';
 
-// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
-
-(function() {
-  let lastTime = 0;
-  let vendors = ['ms', 'moz', 'webkit', 'o'];
-  for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
-      window[vendors[x] + 'CancelRequestAnimationFrame'];
-  }
-
-  if (!window.requestAnimationFrame)
-    window.requestAnimationFrame = function(callback, element) {
-      let currTime = new Date().getTime();
-      let timeToCall = Math.max(0, 16 - (currTime - lastTime));
-      let id = window.setTimeout(function() {
-          callback(currTime + timeToCall);
-        },
-        timeToCall);
-      lastTime = currTime + timeToCall;
-      return id;
-    };
-
-  if (!window.cancelAnimationFrame)
-    window.cancelAnimationFrame = function(id) {
-      clearTimeout(id);
-    };
-}());
-
-document.addEventListener('DOMContentLoaded', start.init());
+document.addEventListener('DOMContentLoaded', () => {
+  window.scrollTo(0, document.body.scrollHeight);
+});
 
 /**
  * Initialize database.
@@ -60,9 +37,18 @@ const assets = new Assets([
 
 function main(snap) {
   /** Read an object with quiz from the database. */
-  let data = snap.val();
+  const data = snap.val();
   /** Initialize new game object. */
-  const game = new Game(data, assets);
-  /** Start the game. */
-  game.init();
+  const game = new Game({
+    canvas: document.querySelector('.game-level__canvas'),
+    data,
+    assets
+  });
+
+  const ui = new UI({
+    elem: document.body,
+    callback: game.start.bind(game)
+  });
+
+  ui.startPage();
 }

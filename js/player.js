@@ -1,22 +1,22 @@
 'use strict';
 
 /** Class representing a player. */
-class Player {
+export default class Player {
   /**
    * @param {Object} game Game instance.
    */
   constructor(game) {
     // assign game instance to local property
-    this.game = game;
+    this._game = game;
     // set starting position to canvas center
-    this.position = {
-      x: this.game.width / 2,
-      y: this.game.height / 2
+    this._position = {
+      x: this._game.width / 2,
+      y: this._game.height / 2
     };
-    this.speed = 35;
+    this._speed = 35;
     // current rotation angle
-    this.angle = 0;
-    this.raccoon = this.game.raccoon;
+    this._angle = 0;
+    this._raccoon = this._game.raccoon;
   }
 
   /**
@@ -31,18 +31,18 @@ class Player {
       return;
     }
     // calculate the distance between mouse and raccon position
-    let distX = this.game.cursor.x - (this.position.x - this.raccoon.width / 2);
-    let distY = this.game.cursor.y - (this.position.y - this.raccoon.height / 2);
+    let distX = this._game.cursor.x - (this._position.x - this._raccoon.width / 2);
+    let distY = this._game.cursor.y - (this._position.y - this._raccoon.height / 2);
     // calculate parameters if the mouse position is not the current
     // player position
     if (distX !== 0 && distY !== 0) {
-      this.angle = Math.atan2(distX, distY * -1);
+      this._angle = Math.atan2(distX, distY * -1);
     }
     // making raccoon move slower
-    let midX = ((this.position.x - this.raccoon.width / 2) - this.game.cursor.x);
-    let midY = ((this.position.y - this.raccoon.height / 2) - this.game.cursor.y);
-    this.position.x -= (midX / this.speed);
-    this.position.y -= (midY / this.speed);
+    let midX = ((this._position.x - this._raccoon.width / 2) - this._game.cursor.x);
+    let midY = ((this._position.y - this._raccoon.height / 2) - this._game.cursor.y);
+    this._position.x -= (midX / this._speed);
+    this._position.y -= (midY / this._speed);
   }
 
   /**
@@ -54,12 +54,12 @@ class Player {
     ctx.save();
 
     // set origin point for rotation
-    let posX = this.position.x - (this.raccoon.width / 2);
-    let posY = this.position.y - (this.raccoon.height / 2);
+    let posX = this._position.x - (this._raccoon.width / 2);
+    let posY = this._position.y - (this._raccoon.height / 2);
     ctx.translate(posX, posY);
 
-    ctx.rotate(this.angle);
-    ctx.drawImage(this.raccoon, -(this.raccoon.width / 2), -(this.raccoon.height / 2));
+    ctx.rotate(this._angle);
+    ctx.drawImage(this._raccoon, -(this._raccoon.width / 2), -(this._raccoon.height / 2));
     ctx.fillStyle = '#c51244';
     ctx.fillRect(-5, -5, 10, 10);
     // restore old context

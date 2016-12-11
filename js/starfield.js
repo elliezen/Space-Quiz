@@ -3,21 +3,23 @@
 /**
  * Class representing motion background with falling stars.
  */
-class Starfield {
+export default class Starfield {
   /**
    * @param {Object} game Game instance.
    */
   constructor(game) {
     // assign game instance to local property
-    this.game = game;
-    this.width = this.game.width;
-    this.height = this.game.height;
-    this.speed = 60;
-    this.density = 200;
-    this.stars = [];
-    // set the initial position of starfield background
-    for (let i = 0; i < this.density; i++) {
-      this.stars[i] = new Star(Math.random() * this.width, Math.random() * this.height, Math.random() * 3 + 1);
+    this._game = game;
+    this._width = this._game.width;
+    this._height = this._game.height;
+    this._speed = 60;
+    this._density = 200;
+
+
+    this._stars = [];
+    for (let i = 0; i < this._density; i++) {
+      this._stars[i] = new Star(Math.random() * this._width,
+        Math.random() * this._height, Math.random() * 3 + 1);
     }
   }
 
@@ -33,12 +35,12 @@ class Starfield {
       return;
     }
 
-    for (let i = 0; i < this.density; i++) {
-      let star = this.stars[i];
-      star.y += delta * this.speed;
+    for (let i = 0; i < this._density; i++) {
+      let star = this._stars[i];
+      star.y += delta * this._speed;
       //	If the star has moved from the bottom of the screen, spawn it at the top.
-      if (star.y > this.height) {
-        this.stars[i] = new Star(Math.random() * this.width, 0, Math.random() * 3 + 1);
+      if (star.y > this._height) {
+        this._stars[i] = new Star(Math.random() * this._width, 0, Math.random() * 3 + 1);
       }
     }
   }
@@ -48,8 +50,8 @@ class Starfield {
    * @param {CanvasRenderingContext2D} ctx Current game canvas context.
    */
   render(ctx) {
-    for (let i = 0; i < this.density; i++) {
-      let star = this.stars[i];
+    for (let i = 0; i < this._density; i++) {
+      let star = this._stars[i];
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.size / 2, 0, 2 * Math.PI);
       ctx.fillStyle = '#fff';
