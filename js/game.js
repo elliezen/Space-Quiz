@@ -124,7 +124,7 @@ export default class Game {
   getProgress(progress) {
     if (!progress) {
       this._lives--;
-      this.$livesDiv.innerHTML = (this.lives === 3) ? 'lif' :
+      this.$livesDiv.innerHTML = (this._lives === 3) ? 'lif' :
         (this._lives === 2) ? 'li' :
         (this._lives === 1) ? 'l' : ' ';
       if (this._lives === 0) {
@@ -147,7 +147,6 @@ export default class Game {
     this._starfield = null;
     this._quiz = null;
     this._player = null;
-
     this._loop = null;
   }
 
