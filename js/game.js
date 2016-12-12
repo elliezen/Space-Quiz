@@ -74,6 +74,8 @@ export default class Game {
     this._score = 0;
     this._lives = 4;
     this.$livesDiv.innerHTML = 'life';
+    this.$scoreDiv.innerHTML = this._score;
+    this.$modalScore.innerHTML = this._score;
   }
 
   /** Create main objects and initiates game loop. */

@@ -13,6 +13,20 @@
   </head>
   <body>
     <section class="game-level game-level--first">
+      <div class="game-loader">
+        <div class="loader">
+          <div class="loader-mini"></div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <defs>
+            <filter id="goo">
+              <fegaussianblur in="SourceGraphic" stddeviation="15" result="blur"></fegaussianblur>
+              <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 26 -7" result="goo"></fecolormatrix>
+              <feblend in="SourceGraphic" in2="goo"></feblend>
+            </filter>
+          </defs>
+        </svg>
+      </div>
       <div class="game-level__start">
         <div class="game-level__start-text">TIME TO START&nbsp;<span class="game-level__start-count">3</span></div>
       </div>

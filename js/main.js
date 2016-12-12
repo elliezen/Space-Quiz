@@ -5,7 +5,10 @@ import UI from './UI';
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  window.scrollTo(0, document.body.scrollHeight);
+  setTimeout(() => {
+    document.querySelector('.game-loader').style.display = 'none';
+    window.scrollTo(0, document.body.scrollHeight);
+  }, 4000);
 });
 
 /**

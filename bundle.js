@@ -63,7 +63,10 @@
 	'use strict';
 
 	document.addEventListener('DOMContentLoaded', function () {
-	  window.scrollTo(0, document.body.scrollHeight);
+	  setTimeout(function () {
+	    document.querySelector('.game-loader').style.display = 'none';
+	    window.scrollTo(0, document.body.scrollHeight);
+	  }, 4000);
 	});
 
 	/**
@@ -286,6 +289,8 @@
 	      this._score = 0;
 	      this._lives = 4;
 	      this.$livesDiv.innerHTML = 'life';
+	      this.$scoreDiv.innerHTML = this._score;
+	      this.$modalScore.innerHTML = this._score;
 	    }
 
 	    /** Create main objects and initiates game loop. */
