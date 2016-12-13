@@ -273,7 +273,6 @@
 	      // properties storing main game objects
 	      this._player = null;
 	      this._quiz = null;
-	      this._starfield = null;
 
 	      this._now = new Date().getTime();
 	      this._last = new Date().getTime() - 1;
@@ -351,7 +350,7 @@
 	      if (!progress) {
 	        this._lives--;
 	        this.$livesDiv.innerHTML = this._lives === 3 ? 'lif' : this._lives === 2 ? 'li' : this._lives === 1 ? 'l' : ' ';
-	        if (this._lives === 0) {
+	        if (this._lives === 3) {
 	          this.gameOver();
 	        }
 	      } else {
@@ -371,9 +370,9 @@
 
 	      this.ctx.clearRect(0, 0, this.width, this.height);
 
-	      this._starfield = null;
-	      this._quiz = null;
 	      this._player = null;
+	      this._quiz = null;
+
 	      this._loop = null;
 	    }
 
@@ -593,14 +592,14 @@
 	  _createClass(Quiz, [{
 	    key: 'newQuest',
 	    value: function newQuest() {
-	      // clear answers field
-	      this._answers = [];
-	      // count the number of quiz
-	      var num = this._questCount;
 	      // finish the game if there are no more questions
 	      if (this._questCount >= this._quizBox.length) {
 	        this._game.gameOver();
 	      }
+	      // clear answers field
+	      this._answers = [];
+	      // count the number of quiz
+	      var num = this._questCount;
 
 	      var quest = this._quizBox[num];
 	      this._question = new Block(quest.question, this._width / 2, 0);
@@ -767,19 +766,24 @@
 	    this._density = 200;
 
 	    this._stars = [];
-	    for (var i = 0; i < this._density; i++) {
-	      this._stars[i] = new Star(Math.random() * this._width, Math.random() * this._height, Math.random() * 3 + 1);
-	    }
+	    this.init();
 	  }
 
-	  /**
-	   * Update location of the stars.
-	   * @param {number} delta The amount of time that has passed
-	   *     between rendering frames.
-	   */
-
-
 	  _createClass(Starfield, [{
+	    key: 'init',
+	    value: function init() {
+	      for (var i = 0; i < this._density; i++) {
+	        this._stars[i] = new Star(Math.random() * this._width, -Math.random() * this._height, Math.random() * 3 + 1);
+	      }
+	    }
+
+	    /**
+	     * Update location of the stars.
+	     * @param {number} delta The amount of time that has passed
+	     *     between rendering frames.
+	     */
+
+	  }, {
 	    key: 'update',
 	    value: function update(delta) {
 	      // avoid the current call of the function if there's no valid

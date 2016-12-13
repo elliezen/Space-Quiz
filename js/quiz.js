@@ -36,14 +36,14 @@ export default class Quiz {
    * from quiz box.
    */
   newQuest() {
-    // clear answers field
-    this._answers = [];
-    // count the number of quiz
-    let num = this._questCount;
     // finish the game if there are no more questions
     if (this._questCount >= this._quizBox.length) {
       this._game.gameOver();
     }
+    // clear answers field
+    this._answers = [];
+    // count the number of quiz
+    let num = this._questCount;
 
     let quest = this._quizBox[num];
     this._question = new Block(quest.question, this._width / 2, 0);

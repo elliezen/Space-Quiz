@@ -58,7 +58,6 @@ export default class Game {
     // properties storing main game objects
     this._player = null;
     this._quiz = null;
-    this._starfield = null;
 
     this._now = (new Date()).getTime();
     this._last = (new Date()).getTime() - 1;
@@ -129,7 +128,7 @@ export default class Game {
       this.$livesDiv.innerHTML = (this._lives === 3) ? 'lif' :
         (this._lives === 2) ? 'li' :
         (this._lives === 1) ? 'l' : ' ';
-      if (this._lives === 0) {
+      if (this._lives === 3) {
         this.gameOver();
       }
     } else {
@@ -146,9 +145,9 @@ export default class Game {
 
     this.ctx.clearRect(0, 0, this.width, this.height);
 
-    this._starfield = null;
-    this._quiz = null;
     this._player = null;
+    this._quiz = null;
+
     this._loop = null;
   }
 

@@ -15,11 +15,14 @@ export default class Starfield {
     this._speed = 60;
     this._density = 200;
 
-
     this._stars = [];
+    this.init();
+  }
+
+  init() {
     for (let i = 0; i < this._density; i++) {
       this._stars[i] = new Star(Math.random() * this._width,
-        Math.random() * this._height, Math.random() * 3 + 1);
+      -Math.random() * this._height, Math.random() * 3 + 1);
     }
   }
 
