@@ -128,7 +128,7 @@ export default class Game {
       this.$livesDiv.innerHTML = (this._lives === 3) ? 'lif' :
         (this._lives === 2) ? 'li' :
         (this._lives === 1) ? 'l' : ' ';
-      if (this._lives === 3) {
+      if (this._lives === 0) {
         this.gameOver();
       }
     } else {
