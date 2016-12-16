@@ -1,6 +1,6 @@
-import Player from './Player';
-import Quiz from './Quiz';
-import Starfield from './Starfield';
+import Player from './player';
+import Quiz from './quiz';
+import Starfield from './starfield';
 
 'use strict';
 

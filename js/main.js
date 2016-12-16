@@ -1,6 +1,6 @@
-import Assets from './Assets';
-import Game from './Game';
-import UI from './UI';
+import Assets from './assets';
+import Game from './game';
+import UI from './ui';
 
 'use strict';
 

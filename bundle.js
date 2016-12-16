@@ -46,17 +46,17 @@
 
 	'use strict';
 
-	var _Assets = __webpack_require__(1);
+	var _assets = __webpack_require__(1);
 
-	var _Assets2 = _interopRequireDefault(_Assets);
+	var _assets2 = _interopRequireDefault(_assets);
 
-	var _Game = __webpack_require__(2);
+	var _game = __webpack_require__(2);
 
-	var _Game2 = _interopRequireDefault(_Game);
+	var _game2 = _interopRequireDefault(_game);
 
-	var _UI = __webpack_require__(6);
+	var _ui = __webpack_require__(6);
 
-	var _UI2 = _interopRequireDefault(_UI);
+	var _ui2 = _interopRequireDefault(_ui);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -89,7 +89,7 @@
 	 * Initialize new assets object and call data
 	 * and main function only after all images loading.
 	 */
-	var assets = new _Assets2.default(['img/raccoon.png', 'img/cookie.png'], function () {
+	var assets = new _assets2.default(['img/raccoon.png', 'img/cookie.png'], function () {
 	  quizObjectRef.once('value').then(main);
 	});
 
@@ -97,13 +97,13 @@
 	  /** Read an object with quiz from the database. */
 	  var data = snap.val();
 	  /** Initialize new game object. */
-	  var game = new _Game2.default({
+	  var game = new _game2.default({
 	    canvas: document.querySelector('.game-level__canvas'),
 	    data: data,
 	    assets: assets
 	  });
 
-	  var ui = new _UI2.default({
+	  var ui = new _ui2.default({
 	    elem: document.body,
 	    callback: game.start.bind(game)
 	  });
@@ -193,17 +193,17 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _Player = __webpack_require__(3);
+	var _player = __webpack_require__(3);
 
-	var _Player2 = _interopRequireDefault(_Player);
+	var _player2 = _interopRequireDefault(_player);
 
-	var _Quiz = __webpack_require__(4);
+	var _quiz = __webpack_require__(4);
 
-	var _Quiz2 = _interopRequireDefault(_Quiz);
+	var _quiz2 = _interopRequireDefault(_quiz);
 
-	var _Starfield = __webpack_require__(5);
+	var _starfield = __webpack_require__(5);
 
-	var _Starfield2 = _interopRequireDefault(_Starfield);
+	var _starfield2 = _interopRequireDefault(_starfield);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -297,10 +297,10 @@
 	  }, {
 	    key: '_init',
 	    value: function _init() {
-	      this._starfield = new _Starfield2.default(this);
-	      this._quiz = new _Quiz2.default(this);
+	      this._starfield = new _starfield2.default(this);
+	      this._quiz = new _quiz2.default(this);
 	      this._quiz.newQuest();
-	      this._player = new _Player2.default(this);
+	      this._player = new _player2.default(this);
 
 	      // create mousemovement event to have the current mouse position
 	      this.canvas.addEventListener('mousemove', function (e) {
