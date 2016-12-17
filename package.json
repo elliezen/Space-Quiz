@@ -1,14 +1,29 @@
 {
   "name": "space-quiz",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "HTML5 canvas quiz game using pure JavaScript",
   "author": "Liza Kobrazova <lizakobrazova@gmail.com>",
-  "license": "MIT",
+  "license": "ISC",
   "homepage": "https://github.com/elliepooh/elliepooh.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elliepooh/elliepooh.github.io.git"
+  },
+  "keywords": [
+    "es6",
+    "es2015",
+    "space",
+    "play",
+    "game",
+    "teach",
+    "learn",
+    "quiz",
+    "pure"
+  ],
   "devDependencies": {
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",
-    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
     "webpack": "^1.14.0"
   }
 }
