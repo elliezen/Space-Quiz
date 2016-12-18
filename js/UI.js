@@ -19,7 +19,8 @@ export default class UI {
   }
 
   _onClick(selector, func) {
-    this._$elem.querySelector(selector).addEventListener('click', func.bind(this));
+    this._$elem.querySelector(selector).addEventListener('click',
+    func.bind(this));
   }
 
   _scrollPage() {
@@ -49,7 +50,8 @@ export default class UI {
       timerId = setTimeout(countdown.bind(this), 700);
     }).bind(this), 700);
 
-    this._$elem.querySelector('.game-overlay').classList.remove('overlay--active');
+    this._$elem.querySelector('.game-overlay').classList.
+    remove('overlay--active');
   }
 
   _setMusic() {

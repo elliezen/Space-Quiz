@@ -1,6 +1,8 @@
 import Player from './player';
 import Quiz from './quiz';
 import Starfield from './starfield';
+import State from './state';
+import Modal from './modal';
 
 'use strict';
 
@@ -15,15 +17,18 @@ export default class Game {
    * @param {Object[]} assets The images required for the game.
    */
   constructor({
-    canvas,
+    gameLvl,
+    gameUi,
+    gameModal,
     data,
     assets
   }) {
     // assign base properties
-    this.canvas = canvas;
+    this.$gameLvl = gameLvl;
+    this.canvas = this.$gameLvl.querySelector('.game-level__canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = document.querySelector('.game-level').scrollWidth;
-    this.canvas.height = document.querySelector('.game-level').clientHeight;
+    this.canvas.width = this.$gameLvl.scrollWidth;
+    this.canvas.height = this.$gameLvl.clientHeight;
 
     this.width = this.canvas.width;
     this.height = this.canvas.height;
@@ -34,30 +39,19 @@ export default class Game {
     this.raccoon = this.assets.getImage('raccoon.png');
     this.cookie = this.assets.getImage('cookie.png');
 
-    this.$startBtn = document.querySelector('.btn-play');
-
-    this.$livesDiv = document.querySelector('.game-interface_life');
-    this.$scoreDiv = document.querySelector('.score-count');
-
-    this.$modal = document.querySelector('.game-overlay');
-    this.$modalScore = document.querySelector('.warn__score').firstElementChild;
-    this.$modalWarnBtn = document.querySelector('.warn__btn');
+    this.$gameUi = gameUi;
+    this.$gameModal = gameModal;
   }
 
   /** Reset properties and start the game. */
   start() {
-    // reset properties
-    this._setVal();
     this._init();
+    this._reset();
   }
 
-  _setVal() {
+  _reset() {
     this._time = false;
     this._isOver = false;
-
-    // properties storing main game objects
-    this._player = null;
-    this._quiz = null;
 
     this._now = (new Date()).getTime();
     this._last = (new Date()).getTime() - 1;
@@ -70,11 +64,8 @@ export default class Game {
       y: this.height / 2
     };
 
-    this._score = 0;
-    this._lives = 4;
-    this.$livesDiv.innerHTML = 'life';
-    this.$scoreDiv.innerHTML = this._score;
-    this.$modalScore.innerHTML = this._score;
+    this.state.reset();
+    this._modal.reset();
   }
 
   /** Create main objects and initiates game loop. */
@@ -83,6 +74,17 @@ export default class Game {
     this._quiz = new Quiz(this);
     this._quiz.newQuest();
     this._player = new Player(this);
+
+    // init game interface and count score and lives
+    this.state = new State({
+      elem: this.$gameUi,
+      callback: this.gameOver.bind(this)
+    });
+
+    // init game over modal
+    this._modal = new Modal({
+      elem: this.$gameModal
+    });
 
     // create mousemovement event to have the current mouse position
     this.canvas.addEventListener('mousemove', (function(e) {
@@ -118,29 +120,10 @@ export default class Game {
     };
   }
 
-  /**
-   * Count scores and game lives depending on the answer.
-   * @param {boolean} progress Shows correctness of the answer.
-   */
-  getProgress(progress) {
-    if (!progress) {
-      this._lives--;
-      this.$livesDiv.innerHTML = (this._lives === 3) ? 'lif' :
-        (this._lives === 2) ? 'li' :
-        (this._lives === 1) ? 'l' : ' ';
-      if (this._lives === 0) {
-        this.gameOver();
-      }
-    } else {
-      this._score++;
-      this.$scoreDiv.innerHTML = this._score;
-      this.$modalScore.innerHTML = this._score;
-    }
-  }
-
   /** Show game over modal window and clear game objects. */
   gameOver() {
-    this.$modal.classList.add('overlay--active');
+    let score = this.state.getScore();
+    this._modal.show(score);
     this._isOver = true;
 
     this.ctx.clearRect(0, 0, this.width, this.height);

@@ -43,7 +43,9 @@ function main(snap) {
   const data = snap.val();
   /** Initialize new game object. */
   const game = new Game({
-    canvas: document.querySelector('.game-level__canvas'),
+    gameLvl: document.querySelector('.game-level'),
+    gameUi: document.querySelector('.game-interface'),
+    gameModal: document.querySelector('.game-overlay'),
     data,
     assets
   });

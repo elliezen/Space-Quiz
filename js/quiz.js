@@ -96,7 +96,9 @@ export default class Quiz {
     ctx.fillStyle = '#fff';
     ctx.font = 'small-caps 3em Righteous';
     this._qWidth = ctx.measureText(this._question.text).width;
-    ctx.fillText(this._question.text, this._question.x - this._qWidth / 2, this._question.y);
+    ctx.fillText(this._question.text,
+      this._question.x - this._qWidth / 2,
+      this._question.y);
 
     for (let i = 0; i < this._answers.length; i++) {
       let answer = this._answers[i];
@@ -121,7 +123,7 @@ export default class Quiz {
       (this._game.cursor.y > answer.y) &&
       (this._game.cursor.y < answer.y + this._fontSize)) {
       let progress = answer.text === this._correct ? true : false;
-      this._game.getProgress(progress);
+      this._game.state.getState(progress);
       this.newQuest();
     };
 
@@ -134,7 +136,7 @@ export default class Quiz {
 
 /**
  * Computer-optimized version of Fisher-Yates algorithm for
- * randomizing (shuffling) an array.
+ * randomizing an array.
  * @param {CanvasRenderingContext2D} ctx Current game canvas context.
  */
 function shuffleArray(array) {

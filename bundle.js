@@ -54,7 +54,7 @@
 
 	var _game2 = _interopRequireDefault(_game);
 
-	var _ui = __webpack_require__(6);
+	var _ui = __webpack_require__(8);
 
 	var _ui2 = _interopRequireDefault(_ui);
 
@@ -98,7 +98,9 @@
 	  var data = snap.val();
 	  /** Initialize new game object. */
 	  var game = new _game2.default({
-	    canvas: document.querySelector('.game-level__canvas'),
+	    gameLvl: document.querySelector('.game-level'),
+	    gameUi: document.querySelector('.game-interface'),
+	    gameModal: document.querySelector('.game-overlay'),
 	    data: data,
 	    assets: assets
 	  });
@@ -205,6 +207,14 @@
 
 	var _starfield2 = _interopRequireDefault(_starfield);
 
+	var _state = __webpack_require__(6);
+
+	var _state2 = _interopRequireDefault(_state);
+
+	var _modal = __webpack_require__(7);
+
+	var _modal2 = _interopRequireDefault(_modal);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -223,17 +233,20 @@
 	   * @param {Object[]} assets The images required for the game.
 	   */
 	  function Game(_ref) {
-	    var canvas = _ref.canvas,
+	    var gameLvl = _ref.gameLvl,
+	        gameUi = _ref.gameUi,
+	        gameModal = _ref.gameModal,
 	        data = _ref.data,
 	        assets = _ref.assets;
 
 	    _classCallCheck(this, Game);
 
 	    // assign base properties
-	    this.canvas = canvas;
+	    this.$gameLvl = gameLvl;
+	    this.canvas = this.$gameLvl.querySelector('.game-level__canvas');
 	    this.ctx = this.canvas.getContext('2d');
-	    this.canvas.width = document.querySelector('.game-level').scrollWidth;
-	    this.canvas.height = document.querySelector('.game-level').clientHeight;
+	    this.canvas.width = this.$gameLvl.scrollWidth;
+	    this.canvas.height = this.$gameLvl.clientHeight;
 
 	    this.width = this.canvas.width;
 	    this.height = this.canvas.height;
@@ -244,14 +257,8 @@
 	    this.raccoon = this.assets.getImage('raccoon.png');
 	    this.cookie = this.assets.getImage('cookie.png');
 
-	    this.$startBtn = document.querySelector('.btn-play');
-
-	    this.$livesDiv = document.querySelector('.game-interface_life');
-	    this.$scoreDiv = document.querySelector('.score-count');
-
-	    this.$modal = document.querySelector('.game-overlay');
-	    this.$modalScore = document.querySelector('.warn__score').firstElementChild;
-	    this.$modalWarnBtn = document.querySelector('.warn__btn');
+	    this.$gameUi = gameUi;
+	    this.$gameModal = gameModal;
 	  }
 
 	  /** Reset properties and start the game. */
@@ -260,19 +267,14 @@
 	  _createClass(Game, [{
 	    key: 'start',
 	    value: function start() {
-	      // reset properties
-	      this._setVal();
 	      this._init();
+	      this._reset();
 	    }
 	  }, {
-	    key: '_setVal',
-	    value: function _setVal() {
+	    key: '_reset',
+	    value: function _reset() {
 	      this._time = false;
 	      this._isOver = false;
-
-	      // properties storing main game objects
-	      this._player = null;
-	      this._quiz = null;
 
 	      this._now = new Date().getTime();
 	      this._last = new Date().getTime() - 1;
@@ -285,11 +287,8 @@
 	        y: this.height / 2
 	      };
 
-	      this._score = 0;
-	      this._lives = 4;
-	      this.$livesDiv.innerHTML = 'life';
-	      this.$scoreDiv.innerHTML = this._score;
-	      this.$modalScore.innerHTML = this._score;
+	      this.state.reset();
+	      this._modal.reset();
 	    }
 
 	    /** Create main objects and initiates game loop. */
@@ -301,6 +300,17 @@
 	      this._quiz = new _quiz2.default(this);
 	      this._quiz.newQuest();
 	      this._player = new _player2.default(this);
+
+	      // init game interface and count score and lives
+	      this.state = new _state2.default({
+	        elem: this.$gameUi,
+	        callback: this.gameOver.bind(this)
+	      });
+
+	      // init game over modal
+	      this._modal = new _modal2.default({
+	        elem: this.$gameModal
+	      });
 
 	      // create mousemovement event to have the current mouse position
 	      this.canvas.addEventListener('mousemove', function (e) {
@@ -339,33 +349,13 @@
 	      };
 	    }
 
-	    /**
-	     * Count scores and game lives depending on the answer.
-	     * @param {boolean} progress Shows correctness of the answer.
-	     */
-
-	  }, {
-	    key: 'getProgress',
-	    value: function getProgress(progress) {
-	      if (!progress) {
-	        this._lives--;
-	        this.$livesDiv.innerHTML = this._lives === 3 ? 'lif' : this._lives === 2 ? 'li' : this._lives === 1 ? 'l' : ' ';
-	        if (this._lives === 0) {
-	          this.gameOver();
-	        }
-	      } else {
-	        this._score++;
-	        this.$scoreDiv.innerHTML = this._score;
-	        this.$modalScore.innerHTML = this._score;
-	      }
-	    }
-
 	    /** Show game over modal window and clear game objects. */
 
 	  }, {
 	    key: 'gameOver',
 	    value: function gameOver() {
-	      this.$modal.classList.add('overlay--active');
+	      var score = this.state.getScore();
+	      this._modal.show(score);
 	      this._isOver = true;
 
 	      this.ctx.clearRect(0, 0, this.width, this.height);
@@ -683,7 +673,7 @@
 	    value: function _checkAnswer(answer) {
 	      if (this._game.cursor.x > answer.x && this._game.cursor.x < answer.x + this._aWidth && this._game.cursor.y > answer.y && this._game.cursor.y < answer.y + this._fontSize) {
 	        var progress = answer.text === this._correct ? true : false;
-	        this._game.getProgress(progress);
+	        this._game.state.getState(progress);
 	        this.newQuest();
 	      };
 
@@ -699,7 +689,7 @@
 
 	/**
 	 * Computer-optimized version of Fisher-Yates algorithm for
-	 * randomizing (shuffling) an array.
+	 * randomizing an array.
 	 * @param {CanvasRenderingContext2D} ctx Current game canvas context.
 	 */
 
@@ -848,6 +838,146 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/** Class representing game interface, lives and score. */
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var State = function () {
+	  /**
+	   * @param {Object} elem Game interface.
+	   * @param {requestCallback} callback The callback for game over.
+	   */
+	  function State(_ref) {
+	    var elem = _ref.elem,
+	        callback = _ref.callback;
+
+	    _classCallCheck(this, State);
+
+	    this._$elem = elem;
+	    this._callback = callback;
+
+	    this.score = 0;
+	    this.lives = 4;
+
+	    this.$lives = this._$elem.querySelector('.game-interface_life');
+	    this.$score = this._$elem.querySelector('.score-count');
+	  }
+
+	  /** Reset game lives and score. */
+
+
+	  _createClass(State, [{
+	    key: 'reset',
+	    value: function reset() {
+	      this.score = 0;
+	      this.lives = 4;
+	      this.$lives.innerHTML = 'life';
+	      this.$score.innerHTML = this.score;
+	    }
+
+	    /**
+	     * Get the score.
+	     * @return {number} The score.
+	     */
+
+	  }, {
+	    key: 'getScore',
+	    value: function getScore() {
+	      return this.score;
+	    }
+
+	    /**
+	     * Count scores and game lives depending on the answer.
+	     * @param {boolean} progress Shows correctness of the answer.
+	     */
+
+	  }, {
+	    key: 'getState',
+	    value: function getState(progress) {
+	      if (!progress) {
+	        this.lives--;
+	        this.$lives.innerHTML = this.lives === 3 ? 'lif' : this.lives === 2 ? 'li' : this.lives === 1 ? 'l' : ' ';
+	        if (this.lives === 0) {
+	          this._callback();
+	        }
+	      } else {
+	        this.score++;
+	        this.$score.innerHTML = this.score;
+	      }
+	    }
+	  }]);
+
+	  return State;
+	}();
+
+	exports.default = State;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/** Class representing game over modal window. */
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Modal = function () {
+	  /**
+	   * @param {Object} elem Game overlay.
+	   */
+	  function Modal(_ref) {
+	    var elem = _ref.elem;
+
+	    _classCallCheck(this, Modal);
+
+	    this._$elem = elem;
+
+	    this._$score = this._$elem.querySelector('.warn__score').firstElementChild;
+	  }
+
+	  /** Reset modal score. */
+
+
+	  _createClass(Modal, [{
+	    key: 'reset',
+	    value: function reset() {
+	      this._$score.innerHTML = 0;
+	    }
+
+	    /** Show overlay. */
+
+	  }, {
+	    key: 'show',
+	    value: function show(score) {
+	      this._$score = score;
+	      this._$elem.classList.add('overlay--active');
+	    }
+	  }]);
+
+	  return Modal;
+	}();
+
+	exports.default = Modal;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
