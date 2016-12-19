@@ -1,8 +1,8 @@
-import Player from './player';
-import Quiz from './quiz';
-import Starfield from './starfield';
-import State from './state';
-import Modal from './modal';
+import Player from './modules/player';
+import Quiz from './modules/quiz';
+import Starfield from './modules/starfield';
+import State from './modules/state';
+import Modal from './modules/modal';
 
 'use strict';
 
