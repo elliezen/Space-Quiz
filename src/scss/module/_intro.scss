@@ -181,7 +181,6 @@ left: 86%;
   left: 15%;
   width: 13rem;
   height: 13rem;
-  font-size: 0;
   z-index: 2000;
   cursor: pointer;
   background: transparent url(../img/planet2.png) no-repeat center center;
@@ -199,7 +198,6 @@ left: 86%;
   background: transparent url(../img/ufo.png) no-repeat 50% 50%;
   width: 12rem;
   height: 12rem;
-  font-size: 0;
   z-index: 2000;
   cursor: pointer;
   background-size: 70%;
@@ -211,6 +209,47 @@ left: 86%;
     transform: scale(1.5) rotate(30deg);
   }
 }
+
+
+.tooltip-content {
+	position: absolute;
+	width: 4em;
+	padding: 0.3em;
+  bottom:3em;
+  left:1em;
+	border-radius: 20px;
+	text-align: center;
+	color: #fff;
+	opacity: 0;
+	cursor: default;
+	pointer-events: none;
+	-webkit-font-smoothing: antialiased;
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip--info{
+  	background: #e35583;
+}
+
+.tooltip--play{
+  	background: #e35583;
+}
+
+.btn-play:hover .tooltip-content{
+	opacity: 1;
+	-webkit-transform: translate3d(0,50%,0) rotate3d(0,0,0,0);
+	transform: translate3d(0,50%,0) rotate3d(0,0,0,0);
+	pointer-events: auto;
+}
+
+.btn-info:hover .tooltip-content{
+	opacity: 1;
+	-webkit-transform: translate3d(0,50%,0) rotate(-30deg);
+	transform: translate3d(0,50%,0) rotate(-30deg);
+	pointer-events: auto;
+}
+
 .game__octocat {
   position: absolute;
   content: "";
