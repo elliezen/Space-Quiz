@@ -1,13 +1,11 @@
-// fonts
-@import "https://fonts.googleapis.com/css?family=Righteous";
-// normalize
-@import "vendor/_normalize";
-// utilities
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+@import "_normalize";
 @import "_var";
 @import "_mixin";
 @import "_global";
-// module
+@import "module/_preloader";
 @import "module/_intro";
+@import "module/_music";
 @import "module/_info";
 @import "module/_level";
 @import "module/_animation";

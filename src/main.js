@@ -1,6 +1,8 @@
-import Assets from './assets';
-import Game from './game';
-import UI from './ui';
+import Assets from './js/assets';
+import Game from './js/game';
+import UI from './js/ui';
+
+import './scss/style.scss';
 
 'use strict';
 
@@ -32,8 +34,8 @@ const quizObjectRef = firebase.database().ref().child('object');
  * and main function only after all images loading.
  */
 const assets = new Assets([
-  'img/raccoon.png',
-  'img/cookie.png'
+  '../src/scss/img/raccoon.png',
+  '../src/scss/img/cookie.png'
 ], function() {
   quizObjectRef.once('value').then(main);
 });

@@ -1,0 +1,139 @@
+
+.game__music-player {
+  background: white;
+    width: 10vw;
+    height: 25vh;
+    /* margin: -3rem 0 0 -10rem; */
+    top: 40vh;
+    padding:0.5em;
+    right: 0;
+    position: absolute;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.5);
+      background: rgba(12, 24, 49, 0.3);
+    display: flex;
+    transition: 0.6s;
+    z-index: 2001;
+}
+
+.music-player__progress {
+  width: 100%;
+    flex: 1;
+    display: flex;
+  background-color: $default-color;
+
+  .progress__bar {
+    flex:1;
+    height: 100%;
+    width: 2vw;
+    background-color: #f54d4a;
+  }
+
+}
+
+.music-player__title{
+  flex: 12;
+    display: flex;
+        flex-direction: column;
+    /* height: 2em; */
+    padding: 0em 0em;
+}
+
+.music-player__title .albumn-cover {
+  width: 5.5rem;
+  height: 5.5rem;
+  padding: 1em 0 0 0;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.track-name {
+  padding: .75rem;
+  writing-mode: tb-rl;
+
+  a {
+    color: #858585;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  h1 {
+    font-size: 1.25em;
+    margin:0;
+  }
+
+  h2 {
+    font-size: .75em;
+    font-weight: 300;
+    color: #858585;
+    padding: 0 0 0.4em 0;
+
+    a {
+      color: #858585;
+
+      &:hover {
+        color: #858585;
+      }
+    }
+  }
+}
+
+i{
+  opacity:0.7;
+}
+
+.play{
+  display:none;
+}
+
+.player--active{
+  transition: 0.6s;
+  -webkit-transform: translate(7vw,0);
+  transform: translate(7vw,0);
+}
+
+.play--active{
+  display:flex;
+    flex-direction: column;
+}
+
+i:hover{
+  opacity:1;
+}
+
+.controls {
+  width: 100%;
+  /* margin-top: 2em; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    flex:1;
+    display:flex;
+  flex-direction: column;
+
+    li {
+      flex:1;
+      list-style: none;
+      text-align: center;
+      position: relative;
+      height: 2rem;
+      line-height: 2rem;
+      cursor: pointer;
+
+    	&.active, &:hover {
+        color: #fff;
+      }
+
+    }
+
+  }
+}

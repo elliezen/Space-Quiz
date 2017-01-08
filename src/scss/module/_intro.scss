@@ -3,8 +3,145 @@
 .game-intro {
   position: relative;
   height: 100vh;
-  width:100%;
-  @include lingradient($primary-color, $secondary-color);
+  width:100vw;
+  background: $intro-dark-color;
+  overflow: hidden;
+}
+
+.game-intro__decor{
+
+}
+.decor-intro-star{
+  position: relative;
+  z-index: 500;
+  opacity: 0.8;
+  border-radius: 50%;
+  box-shadow: 0px 0px 24px 3px #11DBDA;
+  background: $intro-light-color;
+  animation: star 8s linear infinite;
+}
+
+.decor-intro-star::before{
+  position: absolute;
+  display: block;
+  content: "";
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 400;
+  opacity: 0.2;
+  border-radius: 50%;
+  background: $intro-light-color;
+}
+
+.star--1{
+  @include absolute();
+  top: 10%;
+  left: 90%;
+  width:0.8em;
+  height:0.8em;
+
+}
+.star--2{
+  @include absolute();
+  top: 85%;
+  left:10%;
+  width:0.8em;
+  height:0.8em;
+}
+.star--3{
+  @include absolute();
+  top: 91%;
+  left: 58%;
+  width:0.6em;
+  height:0.6em;
+}
+.star--4{
+  @include absolute();
+  top: 87%;
+left: 86%;
+  width:0.6em;
+  height:0.6em;
+}
+.star--5{
+  @include absolute();
+  top: 70%;
+  left: 36%;
+  width:0.5em;
+  height:0.5em;
+}
+.star--6{
+  @include absolute();
+  top: 10%;
+  left: 36%;
+  width:0.6em;
+  height:0.6em;
+}
+
+.star--7{
+  @include absolute();
+  top: 14%;
+  left: 8%;
+  width:0.3em;
+  height:0.3em;
+}
+
+.decor-intro-gradient{
+  @include absolute();
+  top: 0%;
+  left: 33%;
+  height: 100%;
+  width: 67%;
+  // background: -moz-radial-gradient(center, ellipse cover, rgba(17,219,217,1) 0%, rgba(32,101,124,0) 70%, rgba(39,51,85,0) 100%); /* ff3.6+ */
+  // background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(17,219,217,1)), color-stop(70%, rgba(32,101,124,0)), color-stop(100%, rgba(39,51,85,0))); /* safari4+,chrome */
+  // background:-webkit-radial-gradient(center, ellipse cover, rgba(17,219,217,1) 0%, rgba(32,101,124,0) 70%, rgba(39,51,85,0) 100%); /* safari5.1+,chrome10+ */
+  // background: -o-radial-gradient(center, ellipse cover, rgba(17,219,217,1) 0%, rgba(32,101,124,0) 70%, rgba(39,51,85,0) 100%); /* opera 11.10+ */
+  // background: -ms-radial-gradient(center, ellipse cover, rgba(17,219,217,1) 0%, rgba(32,101,124,0) 70%, rgba(39,51,85,0) 100%); /* ie10+ */
+  // background:radial-gradient(ellipse at center, rgba(17,219,217,1) 0%, rgba(32,101,124,0) 70%, rgba(39,51,85,0) 100%); /* w3c */
+  // filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#11DBD9', endColorstr='#273355',GradientType=1 ); /* ie6-9 */
+}
+.decor-intro-planet{
+  @include absolute();
+  top: 0%;
+  left: 0%;
+  height: 41em;
+  width: 45em;
+  border-radius: 50%;
+  z-index: 400;
+  background: transparent url(img/planet.png) no-repeat center center;
+  background-size: 70%;
+  &::before{
+    position: absolute;
+    display: block;
+    content: "";
+    top: 23%;
+    left: 27%;
+    height: 52%;
+    width: 47%;
+    z-index: 1000;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0px 0px 123px 53px #11DBD9;
+    animation: illumination 10s linear infinite;
+  }
+}
+
+.game__btn-menu{
+  position: absolute;
+  content: "";
+  display: block;
+  top:2%;
+  right:1%;
+  opacity: 0.5;
+  width: 50px;
+  height: 50px;
+  z-index: 100;
+  cursor: pointer;
+
+  &:hover, &:active{
+    opacity: 1;
+  }
 }
 
 .game-intro__start {
@@ -24,162 +161,82 @@
 }
 
 .start__title {
-  font-size: $font-size*4;
-  margin-bottom: 30px;
-  text-align: $text-align;
-  color: $text-color;
-  -webkit-box-flex:1;
-      -ms-flex:1;
-          flex:1;
-}
-
-.start__act {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.start__act-btn {
-  padding: $btn-padding;
-	border-radius: $btn-border-radius;
-	background: $btn-color;
-	color: $text-color;
-  -ms-flex-preferred-size: 24%;
-      flex-basis: 24%;
-  margin: 0em 2em;
-  cursor: pointer;
-  position: relative;
-	-webkit-transition: background-color 0.3s, color 0.3s;
-	transition: background-color 0.3s, color 0.3s;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-
-  &::before, &::after{
-    @include absolute();
-    top:-20px;
-    left:-20px;
-    bottom:-20px;
-    right:-20px;
-    border-radius: $btn-border-radius;
-    background: inherit;
-    z-index: -1;
-  	opacity: 0.7;
-  	-webkit-transform: scale3d(0.8, 0.5, 1);
-  	transform: scale3d(0.8, 0.5, 1);
-  }
-
-  &:hover, &:active{
-    -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  	transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-    background-color: $btn-color;
-  	color: #ECEFF1;
-  	-webkit-animation: btn-click 0.3s forwards;
-  	animation: btn-click 0.3s forwards;
-
-    &::before{
-      -webkit-animation: btn-click-2 0.3s 0.3s forwards;
-      animation: btn-click-2 0.3s 0.3s forwards;
-    }
-  }
-}
-
-.divider {
-  visibility: hidden;
-}
-
-.game-intro__decor {
-
-}
-
-.decor-star,.decor-cloud,.decor-triangle {
-  @include absolute();
-  right:0;
-  bottom:0;
-  width: 100%;
-  height: 100%;
-}
-
-.decor-star{
-  background: transparent url(../img/stars.png) repeat top center;
-  z-index: 0;
-}
-
-.decor-cloud {
-  background: transparent url(../img/clouds.png) repeat top center;
-  z-index: 0;
-  -webkit-animation: move-clouds-back 200s linear infinite;
-  animation: move-clouds-back 200s linear infinite;
-}
-
-.cloud-on {
-  -webkit-animation: cloud-opacity 15s linear;
-  animation: cloud-opacity 15s linear;
-}
-
-.decor-triangle {
-  background: transparent url(../img/triangle.png) repeat top center;
-  z-index: 3;
-  -webkit-animation: move-triangle-back 200s linear infinite;
-  animation: move-triangle-back 200s linear infinite;
-}
-
-.game-intro__footer {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  min-height: 10vh;
+  top: 20%;
+  left: 10%;
+  width: 29vw;
+  height: 34vh;
+  z-index: 100;
+  font-size: 9vh;
+  text-align: center;
+  color: #EEE;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.btn-play{
+  position: absolute;
+  top: 58%;
+  left: 15%;
+  width: 13rem;
+  height: 13rem;
+  font-size: 0;
+  z-index: 2000;
+  cursor: pointer;
+  background: transparent url(img/planet2.png) no-repeat center center;
+  background-size: 100%;
+  transition: 1s;
+  &:hover, &:active{
+    transform: scale(1.5);
+  }
+}
+.btn-info{
+  position: absolute;
+  top:5%;
+  left: 77%;
+  z-index: 100;
+  background: transparent url(img/ufo.png) no-repeat 50% 50%;
+  width: 12rem;
+  height: 12rem;
+  font-size: 0;
+  z-index: 2000;
+  cursor: pointer;
+  background-size: 70%;
+  transition: 1s;
+  transform: rotate(30deg);
+  // animation: ufo 10s linear infinite;
+  &:hover, &:active{
+    animation-play-state: paused;
+    transform: scale(1.5) rotate(30deg);
+  }
+}
+.game__octocat {
+  position: absolute;
+  content: "";
+  display: block;
+  width:7em;
+  height: 7em;
+  bottom: 2.6em;
+  right: 2em;
+  z-index: 2000;
+  background: transparent url(img/github.png) no-repeat center center;
+  background-size: 70%;
+  animation: octocat 6s linear infinite;
+  &:hover, &:active{
+    animation-play-state: paused;
+    transform: scale(1.5);
+  }
+}
+
+.game__copyright {
+  position: absolute;
+  content: "";
+  display: block;
+  width:7em;
+  height: 7em;
   bottom: 0;
   left: 0;
-  background: transparent;
-  z-index: 100;
-}
-
-.footer__social {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  text-align: left;
-  padding-left: 2%;
-  padding-top:2%;
-}
-
-.social-block {
-  display: block;
-}
-
-.social-block__link {
-  display: inline-block;
-}
-
-.link--github {
-  display: block;
-  width:32px;
-  height: 32px;
-  opacity: 0.6;
-  background: transparent url(../img/github.png) repeat top center;
-
-  &:hover, &:active{
-    opacity: 1;
-  }
-}
-
-.footer__copyright {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  text-align: right;
-  padding-right: 2%;
-  padding-top:2%;
-  color:#C04848;
-  opacity:0.7;
-
-  &:hover, &:active{
-  opacity:1;
-  }
 }
 
 .copyright__link {
@@ -188,27 +245,4 @@
   padding: 1%;
 }
 
-.game__btn-music {
-  @include absolute();
-  top:2%;
-  left:1%;
-  display: inline-block;
-  z-index: 100;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  opacity: 0.5;
-
-  &:hover, &:active{
-    opacity: 1;
-  }
-}
-
-.btn--musicon{
-  background: transparent url(../img/musicon.png) no-repeat;
-}
-
-.btn--musicoff{
-  background: transparent url(../img/musicoff.png) no-repeat;
-}
 /* Intro-end*/

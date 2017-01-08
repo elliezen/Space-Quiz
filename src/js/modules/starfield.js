@@ -12,8 +12,8 @@ export default class Starfield {
     this._game = game;
     this._width = this._game.width;
     this._height = this._game.height;
-    this._speed = 60;
-    this._density = 200;
+    this._speed = 400;
+    this._density = 400;
 
     this._stars = [];
     this.init();
@@ -43,7 +43,8 @@ export default class Starfield {
       star.y += delta * this._speed;
       //	If the star has moved from the bottom of the screen, spawn it at the top.
       if (star.y > this._height) {
-        this._stars[i] = new Star(Math.random() * this._width, 0, Math.random() * 3 + 1);
+        this._stars[i] = new Star(Math.random() * this._width, 0,
+        Math.random() * 3 + 1);
       }
     }
   }

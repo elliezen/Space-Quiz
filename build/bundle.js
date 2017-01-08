@@ -58,6 +58,8 @@
 
 	var _ui2 = _interopRequireDefault(_ui);
 
+	__webpack_require__(9);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	'use strict';
@@ -89,7 +91,7 @@
 	 * Initialize new assets object and call data
 	 * and main function only after all images loading.
 	 */
-	var assets = new _assets2.default(['img/raccoon.png', 'img/cookie.png'], function () {
+	var assets = new _assets2.default(['../src/scss/img/raccoon.png', '../src/scss/img/cookie.png'], function () {
 	  quizObjectRef.once('value').then(main);
 	});
 
@@ -243,10 +245,11 @@
 
 	    // assign base properties
 	    this.$gameLvl = gameLvl;
-	    this.canvas = this.$gameLvl.querySelector('.game-level__canvas');
+	    this.$canvasBlock = this.$gameLvl.querySelector('.game-level__canvas-block');
+	    this.canvas = this.$gameLvl.querySelector('.canvas-block__canvas');
 	    this.ctx = this.canvas.getContext('2d');
-	    this.canvas.width = this.$gameLvl.scrollWidth;
-	    this.canvas.height = this.$gameLvl.clientHeight;
+	    this.canvas.width = this.$canvasBlock.clientWidth;
+	    this.canvas.height = this.$canvasBlock.clientHeight;
 
 	    this.width = this.canvas.width;
 	    this.height = this.canvas.height;
@@ -330,18 +333,8 @@
 	  }, {
 	    key: '_getMousePosition',
 	    value: function _getMousePosition(event) {
-	      var nx = 0;
-	      var ny = 0;
-	      if (event.pageX) {
-	        nx = event.pageX;
-	        ny = event.pageY;
-	      } else {
-	        nx = event.clientX + document.body.scrollLeft;
-	        ny = event.clientY + document.body.scrollTop;
-	      }
-
-	      nx -= this.canvas.offsetLeft;
-	      ny -= this.canvas.offsetTop;
+	      var nx = event.clientX;
+	      var ny = event.clientY;
 
 	      this.cursor = {
 	        x: nx,
@@ -607,6 +600,7 @@
 	        var x = Math.random() * (maxX - minX) + minX;
 	        this._answers[i] = new Block(quest.answers[i], x, -this._fontSize);
 	      };
+
 	      // the number of next question
 	      this._questCount++;
 	    }
@@ -752,8 +746,8 @@
 	    this._game = game;
 	    this._width = this._game.width;
 	    this._height = this._game.height;
-	    this._speed = 60;
-	    this._density = 200;
+	    this._speed = 400;
+	    this._density = 400;
 
 	    this._stars = [];
 	    this.init();
@@ -913,6 +907,18 @@
 	      } else {
 	        this.score++;
 	        this.$score.innerHTML = this.score;
+	        this._scrollTop(50);
+	      }
+	    }
+	  }, {
+	    key: '_scrollTop',
+	    value: function _scrollTop(distance) {
+	      var topDistance = window.pageYOffset;
+	      if (topDistance == 0) {
+	        return;
+	      }
+	      for (var scroll = 0; scroll <= distance; scroll += 10) {
+	        window.scrollBy(0, -10);
 	      }
 	    }
 	  }]);
@@ -1020,15 +1026,16 @@
 	    key: '_scrollPage',
 	    value: function _scrollPage() {
 	      window.scrollTo(0, this._$elem.scrollHeight);
+	      this._$elem.querySelector('.game-overlay').classList.remove('overlay--active');
 	    }
 	  }, {
 	    key: '_startLevel',
 	    value: function _startLevel() {
-	      var lvl = this._$elem.querySelector('.game-level--first');
-	      window.scrollTo(0, lvl.getBoundingClientRect().top + pageYOffset);
+	      var lvl = this._$elem.querySelector('.game-level');
+	      lvl.scrollIntoView(false);
 
-	      var timeCounter = this._$elem.querySelector('.game-level__start-count');
-	      var timeCounterDiv = this._$elem.querySelector('.game-level__start');
+	      var timeCounter = lvl.querySelector('.game-level__start-count');
+	      var timeCounterDiv = lvl.querySelector('.game-level__start');
 	      timeCounter.innerHTML = 3;
 	      // reset display
 	      timeCounterDiv.style.display = 'block';
@@ -1045,8 +1052,6 @@
 	        timer--;
 	        timerId = setTimeout(countdown.bind(this), 700);
 	      }.bind(this), 700);
-
-	      this._$elem.querySelector('.game-overlay').classList.remove('overlay--active');
 	    }
 	  }, {
 	    key: '_setMusic',
@@ -1083,6 +1088,12 @@
 	}();
 
 	exports.default = UI;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);

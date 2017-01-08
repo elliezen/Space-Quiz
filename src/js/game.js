@@ -25,10 +25,11 @@ export default class Game {
   }) {
     // assign base properties
     this.$gameLvl = gameLvl;
-    this.canvas = this.$gameLvl.querySelector('.game-level__canvas');
+    this.$canvasBlock = this.$gameLvl.querySelector('.game-level__canvas-block');
+    this.canvas = this.$gameLvl.querySelector('.canvas-block__canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.canvas.width = this.$gameLvl.scrollWidth;
-    this.canvas.height = this.$gameLvl.clientHeight;
+    this.canvas.width  = this.$canvasBlock.clientWidth;
+    this.canvas.height = this.$canvasBlock.clientHeight;
 
     this.width = this.canvas.width;
     this.height = this.canvas.height;
@@ -101,18 +102,8 @@ export default class Game {
    * @param {MouseEvent} event
    */
   _getMousePosition(event) {
-    let nx = 0;
-    let ny = 0;
-    if (event.pageX) {
-      nx = event.pageX;
-      ny = event.pageY;
-    } else {
-      nx = event.clientX + document.body.scrollLeft;
-      ny = event.clientY + document.body.scrollTop;
-    }
-
-    nx -= this.canvas.offsetLeft;
-    ny -= this.canvas.offsetTop;
+    let nx = event.clientX;
+    let ny = event.clientY;
 
     this.cursor = {
       x: nx,

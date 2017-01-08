@@ -25,14 +25,16 @@ export default class UI {
 
   _scrollPage() {
     window.scrollTo(0, this._$elem.scrollHeight);
+    this._$elem.querySelector('.game-overlay').classList.
+    remove('overlay--active');
   }
 
   _startLevel() {
-    let lvl = this._$elem.querySelector('.game-level--first');
-    window.scrollTo(0, lvl.getBoundingClientRect().top + pageYOffset);
+    let lvl = this._$elem.querySelector('.game-level');
+    lvl.scrollIntoView(false);
 
-    let timeCounter = this._$elem.querySelector('.game-level__start-count');
-    let timeCounterDiv = this._$elem.querySelector('.game-level__start');
+    let timeCounter = lvl.querySelector('.game-level__start-count');
+    let timeCounterDiv = lvl.querySelector('.game-level__start');
     timeCounter.innerHTML = 3;
     // reset display
     timeCounterDiv.style.display = 'block';
@@ -49,9 +51,6 @@ export default class UI {
       timer--;
       timerId = setTimeout(countdown.bind(this), 700);
     }).bind(this), 700);
-
-    this._$elem.querySelector('.game-overlay').classList.
-    remove('overlay--active');
   }
 
   _setMusic() {

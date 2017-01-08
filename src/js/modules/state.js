@@ -52,6 +52,17 @@ export default class State {
     } else {
       this.score++;
       this.$score.innerHTML = this.score;
+      this._scrollTop(50);
+    }
+  }
+
+  _scrollTop(distance) {
+    let topDistance = window.pageYOffset;
+    if (topDistance == 0) {
+      return;
+    }
+    for (let scroll = 0; scroll <= distance; scroll += 10) {
+      window.scrollBy(0, -10);
     }
   }
 }

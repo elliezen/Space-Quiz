@@ -1,3 +1,29 @@
+//preloader
+
+$angle: 5deg;
+$iteration: 1;
+$goocolor: #11DBD9;
+$orbitcolor: grey;
+$bigsize:7vw;
+$smallsize:3vw;
+$containerwidth:100vw;
+$animoffset1:15vw;
+$animoffset2:25vw;
+$animoffset3:35vw;
+$animoffset4:45vw;
+$animtime:8s;
+$containerheight:100vw;
+$radius1: $smallsize*2;
+$radius2: $smallsize*3;
+$radius3: $smallsize*4;
+$radius4: $smallsize*5;
+
+$color1:#FF217B;
+$color2:#FF7878;
+$color3:#FFA283;
+$color4:#962A4E;
+$color5:#13C2D3;
+
 // Font-stack
 
 $font-size-base: 18px;
@@ -12,14 +38,30 @@ $spacing: 1px;
 $btn-padding: 1em 4em;
 $btn-border-radius: 50px;
 
-//pallete
+//linear gradient
 
 $primary-color: #C04848;
 $secondary-color: #F7D8C3;
-$thirdary-color: #480048;
+$tertiary-color: #480048;
+$four-color: #0e0505;
+$five-color: #000;
+$six-color: #9b2126;
+
+// intro
+
+$intro-dark-color: #273355;
+$intro-light-color: #11DBD9;
+
 $text-color: #EEE;
 $dark-color: #212121;
 $middle-color: #757575;
 $light-color: #bdbdbd;
-$accent-color: #4F7CAC;
+$accent-color: #A63F3F;
+$dark-accent-color: #992F2F;
 $btn-color: #c65856;
+
+//music
+
+$active-color: rgba(232, 187, 186, 0.57);
+$default-color: rgba(255, 255, 255, 0.73);
+$box-shadow: 2px 2px 30px rgba(0,0,0,0.5);

@@ -17,10 +17,11 @@ body {
     letter-spacing: $spacing;
     color: $text-color;
     background: transparent;
+    overflow: hidden;
 }
 a {
     text-decoration: none;
-    color: #eee;
+    color: #fff;
     outline: none;
     cursor:pointer;
 }
@@ -38,4 +39,8 @@ canvas {
     top: 0;
     left: 0;
     z-index: 0;
+}
+figure{
+  padding:0;
+  margin:0;
 }

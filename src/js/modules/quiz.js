@@ -61,6 +61,7 @@ export default class Quiz {
       let x = Math.random() * (maxX - minX) + minX;
       this._answers[i] = new Block(quest.answers[i], x, -this._fontSize);
     };
+
     // the number of next question
     this._questCount++;
   }

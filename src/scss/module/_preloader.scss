@@ -1,0 +1,135 @@
+
+.game-loader {
+  width:100vw;
+  height:100vh;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: 10000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow:hidden;
+  background: $intro-dark-color;
+}
+
+.game-loader__planet{
+	filter:url('#goo');
+	position:relative;
+	width:$containerwidth;
+	height:$containerheight;
+	&::after { //big goo in middle
+		content:'';
+		display:block;
+		width:$bigsize;
+		height:$bigsize;
+		border-radius:50%;
+		background:$goocolor;
+	  box-shadow: $goocolor 0 0 24px 4px;
+		margin:0 auto;
+		position:absolute;
+		top:$containerheight/2 - $bigsize/2;
+		left:$containerwidth/2 - $bigsize/2;
+		animation:scale $animtime*2 linear infinite, color5 $animtime linear $iteration;
+	}
+	.loader-mini1 {
+		position:absolute;
+		width:$smallsize;
+		height:$smallsize;
+		border-radius:50%;
+		// background:darken($goocolor, 10%);
+    background:$goocolor;
+		top:$containerheight/2 -$smallsize/2;
+		left:$containerwidth/2 - $smallsize/2;
+		animation:move1 $animtime linear $iteration, color1 $animtime linear $iteration;
+	}
+  .loader-mini2 {
+		position:absolute;
+		width:$smallsize*1.2;
+		height:$smallsize*1.2;
+		border-radius:50%;
+		// background:darken($goocolor, 10%);
+    background:$goocolor;
+		top:$containerheight/2 -$smallsize/2;
+		left:$containerwidth/2 - $smallsize/2;
+		animation:move2 $animtime+1s linear $iteration, color2 $animtime+1s linear $iteration;
+	}
+  .loader-mini3 {
+		position:absolute;
+		width:$smallsize*1.4;
+		height:$smallsize*1.4;
+		border-radius:50%;
+		// background:darken($goocolor, 15%);
+    background:$goocolor;
+		top:$containerheight/2 -$smallsize/2;
+		left:$containerwidth/2 - $smallsize/2;
+		animation:move3 $animtime+2s linear $iteration, color3 $animtime+2s linear $iteration;
+	}
+  .loader-mini4 {
+		position:absolute;
+		width:$smallsize*1.6;
+		height:$smallsize*1.6;
+		border-radius:50%;
+		// background:darken($goocolor, 20%);
+    background:$goocolor;
+		top:$containerheight/2 -$smallsize/2;
+		left:$containerwidth/2 - $smallsize/2;
+		animation:move4 $animtime+3s linear $iteration, color4 $animtime+3s linear $iteration;
+	}
+  .loader-radius1 {
+		position:absolute;
+		width:$radius1*2;
+		height:$radius1*2;
+		border-radius:50%;
+		// background:darken($goocolor, 10%);
+    border:0.5px solid $goocolor;
+    opacity: 0.2;
+    background:transparent;
+		top:$containerheight/2 - $radius1;
+		left:$containerwidth/2 - $radius1;
+    transform:scale(0);
+		animation: orbit1 $animtime linear $iteration;
+	}
+  .loader-radius2 {
+		position:absolute;
+		width:$radius2*2;
+		height:$radius2*2;
+		border-radius:50%;
+		// background:darken($goocolor, 10%);
+    border:0.5px solid $goocolor;
+    opacity: 0.2;
+    background:transparent;
+        transform:scale(0);
+		top:$containerheight/2 - $radius2;
+		left:$containerwidth/2 - $radius2;
+		animation: orbit2 $animtime+1s linear $iteration;
+	}
+  .loader-radius3 {
+		position:absolute;
+		width:$radius3*2;
+		height:$radius3*2;
+		border-radius:50%;
+		// background:darken($goocolor, 10%);
+    border:0.5px solid $goocolor;
+    opacity: 0.2;
+    background:transparent;
+        transform:scale(0);
+		top:$containerheight/2 - $radius3;
+		left:$containerwidth/2 - $radius3;
+		animation: orbit3 $animtime+2s linear $iteration;
+	}
+  .loader-radius4 {
+		position:absolute;
+		width:$radius4*2;
+		height:$radius4*2;
+		border-radius:50%;
+		// background:darken($goocolor, 10%);
+    border:0.5px solid $goocolor;
+    opacity: 0.2;
+    background:transparent;
+        transform:scale(0);
+		top:$containerheight/2 - $radius4;
+		left:$containerwidth/2 - $radius4;
+		animation: orbit4 $animtime+3s linear $iteration;
+	}
+}
