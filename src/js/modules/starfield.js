@@ -12,7 +12,7 @@ export default class Starfield {
     this._game = game;
     this._width = this._game.width;
     this._height = this._game.height;
-    this._speed = 400;
+    this._speed = 70;
     this._density = 400;
 
     this._stars = [];

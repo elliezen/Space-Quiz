@@ -34,8 +34,8 @@ const quizObjectRef = firebase.database().ref().child('object');
  * and main function only after all images loading.
  */
 const assets = new Assets([
-  '../src/scss/img/raccoon.png',
-  '../src/scss/img/cookie.png'
+  'src/img/raccoon.png',
+  'src/img/cookie.png'
 ], function() {
   quizObjectRef.once('value').then(main);
 });

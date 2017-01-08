@@ -669,7 +669,7 @@ figure {
   width: 45em;
   border-radius: 50%;
   z-index: 400;
-  background: transparent url(scss/img/planet.png) no-repeat center center;
+  background: transparent url(img/planet.png) no-repeat center center;
   background-size: 70%; }
   .decor-intro-planet::before {
     position: absolute;
@@ -737,7 +737,7 @@ figure {
   font-size: 0;
   z-index: 2000;
   cursor: pointer;
-  background: transparent url(scss/img/planet2.png) no-repeat center center;
+  background: transparent url(img/planet2.png) no-repeat center center;
   background-size: 100%;
   transition: 1s; }
   .btn-play:hover, .btn-play:active {
@@ -748,7 +748,7 @@ figure {
   top: 5%;
   left: 77%;
   z-index: 100;
-  background: transparent url(scss/img/ufo.png) no-repeat 50% 50%;
+  background: transparent url(img/ufo.png) no-repeat 50% 50%;
   width: 12rem;
   height: 12rem;
   font-size: 0;
@@ -770,7 +770,7 @@ figure {
   bottom: 2.6em;
   right: 2em;
   z-index: 2000;
-  background: transparent url(scss/img/github.png) no-repeat center center;
+  background: transparent url(img/github.png) no-repeat center center;
   background-size: 70%;
   animation: octocat 6s linear infinite; }
   .game__octocat:hover, .game__octocat:active {
@@ -1081,10 +1081,10 @@ i:hover {
     opacity: 1; }
 
 .btn--musicon {
-  background: transparent url(scss/img/musicon.png) no-repeat; }
+  background: transparent url(img/musicon.png) no-repeat; }
 
 .btn--musicoff {
-  background: transparent url(scss/img/musicoff.png) no-repeat; }
+  background: transparent url(img/musicoff.png) no-repeat; }
 
 .game__btn-back {
   position: fixed;
@@ -1092,7 +1092,7 @@ i:hover {
   display: block;
   top: 2%;
   left: 1%;
-  background: transparent url(scss/img/Arrow-Down.png) no-repeat right;
+  background: transparent url(img/Arrow-Down.png) no-repeat right;
   opacity: 0.5;
   width: 50px;
   height: 50px;

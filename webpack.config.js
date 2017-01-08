@@ -8,7 +8,8 @@ module.exports = {
 
   entry: './main',
   output: {
-    path: __dirname + '/build',
+    path: __dirname,
+    publicPath: '',
     filename: 'bundle.js'
   },
 

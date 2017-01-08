@@ -91,7 +91,7 @@
 	 * Initialize new assets object and call data
 	 * and main function only after all images loading.
 	 */
-	var assets = new _assets2.default(['../src/scss/img/raccoon.png', '../src/scss/img/cookie.png'], function () {
+	var assets = new _assets2.default(['src/img/raccoon.png', 'src/img/cookie.png'], function () {
 	  quizObjectRef.once('value').then(main);
 	});
 
@@ -746,7 +746,7 @@
 	    this._game = game;
 	    this._width = this._game.width;
 	    this._height = this._game.height;
-	    this._speed = 400;
+	    this._speed = 70;
 	    this._density = 400;
 
 	    this._stars = [];
