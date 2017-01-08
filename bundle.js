@@ -967,12 +967,12 @@
 	      this._$score.innerHTML = 0;
 	    }
 
-	    /** Show overlay. */
+	    /** Show overlay and score. */
 
 	  }, {
 	    key: 'show',
 	    value: function show(score) {
-	      this._$score = score;
+	      this._$score.innerHTML = score;
 	      this._$elem.classList.add('overlay--active');
 	    }
 	  }]);

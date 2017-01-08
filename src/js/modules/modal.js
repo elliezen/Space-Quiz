@@ -18,9 +18,9 @@ export default class Modal {
     this._$score.innerHTML = 0;
   }
 
-  /** Show overlay. */
+  /** Show overlay and score. */
   show(score) {
-    this._$score = score;
+    this._$score.innerHTML = score;
     this._$elem.classList.add('overlay--active');
   }
 }
