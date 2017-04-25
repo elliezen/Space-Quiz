@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "HTML5 canvas quiz game using pure JavaScript",
   "author": "Liza Kobrazova <lizakobrazova@gmail.com>",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "homepage": "https://github.com/elliepooh/elliepooh.github.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/elliepooh/elliepooh.github.io.git"
+  },
+  "scripts": {
+    "webpack": "./node_modules/.bin/webpack"
   },
   "keywords": [
     "es6",
@@ -30,10 +33,11 @@
     "html-webpack-plugin": "^2.25.0",
     "image-webpack-loader": "^3.1.0",
     "node-sass": "^4.1.1",
+    "pug": "^2.0.0-beta.12",
     "pug-loader": "^2.3.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0"
+    "webpack": "^1.15.0"
   }
 }
