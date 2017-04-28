@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 4000);
 });
 
+window.addEventListener('resize', () => {
+  window.scrollTo(0, document.body.scrollHeight);
+});
+
 /**
  * Initialize database.
  * @enum {string}

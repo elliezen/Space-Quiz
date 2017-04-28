@@ -71,6 +71,10 @@
 	  }, 4000);
 	});
 
+	window.addEventListener('resize', function () {
+	  window.scrollTo(0, document.body.scrollHeight);
+	});
+
 	/**
 	 * Initialize database.
 	 * @enum {string}
