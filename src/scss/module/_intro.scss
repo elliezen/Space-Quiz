@@ -102,7 +102,7 @@ left: 86%;
   width: 45em;
   border-radius: 50%;
   z-index: 400;
-  background: transparent url(../img/planet.png) no-repeat center center;
+  background: transparent url('~assets/img/planet.png') no-repeat center center;
   background-size: 70%;
   &::before{
     position: absolute;
@@ -176,7 +176,7 @@ left: 86%;
   height: 13rem;
   z-index: 2000;
   cursor: pointer;
-  background: transparent url(../img/planet2.png) no-repeat center center;
+  background: transparent url('~assets/img/planet2.png') no-repeat center center;
   background-size: 100%;
   transition: 1s;
   &:hover, &:active{
@@ -188,7 +188,7 @@ left: 86%;
   top:5%;
   left: 77%;
   z-index: 100;
-  background: transparent url(../img/ufo.png) no-repeat 50% 50%;
+  background: transparent url('~assets/img/ufo.png') no-repeat 50% 50%;
   width: 12rem;
   height: 12rem;
   z-index: 2000;
@@ -252,7 +252,7 @@ left: 86%;
   bottom: 2.6em;
   right: 2em;
   z-index: 2000;
-  background: transparent url(../img/github.png) no-repeat center center;
+  background: transparent url('~assets/img/github.png') no-repeat center center;
   background-size: 70%;
   animation: octocat 6s linear infinite;
   &:hover, &:active{

@@ -57,11 +57,11 @@
 }
 
 .btn--musicon{
-  background: transparent url(../img/musicon.png) no-repeat;
+  background: transparent url('~assets/img/musicon.png') no-repeat;
 }
 
 .btn--musicoff{
-  background: transparent url(../img/musicoff.png) no-repeat;
+  background: transparent url('~assets/img/musicoff.png') no-repeat;
 }
 
 .game__btn-back {
@@ -70,7 +70,7 @@
     display: block;
     top:2%;
     left:1%;
-    background: transparent url(../img/Arrow-Down.png) no-repeat right;
+    background: transparent url('~assets/img/Arrow-Down.png') no-repeat right;
     opacity: 0.5;
     width: 50px;
     height: 50px;
