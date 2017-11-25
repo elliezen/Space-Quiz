@@ -1,55 +1,87 @@
-'use strict';
+const path = require('path');
+const webpack = require('webpack');
 
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  context: __dirname + '/src',
-
-  entry: './main',
+  entry: './src/main.js',
   output: {
-    path: __dirname,
-    publicPath: '',
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, './dist'),
+    filename: 'build.js'
   },
-
-  watch: true,
-
-  resolve: {
-    extensions: ['', '.js']
-  },
-
-  watchOptions: {
-    aggregateTimeout: 100
-  },
-
   module: {
-
-    loaders: [{
-      test: /\.js$/,
-      loader: 'babel',
-      query: {
-        presets: ['es2015']
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader'
+        }, {
+          loader: 'sass-loader'
+        }]
+      },
+      {
+        test: /\.pug$/,
+        use: [
+          'pug-loader'
+        ]
+      },
+      {
+        test: /\.js$/,
+        use: [
+          'babel-loader',
+          'eslint-loader'
+        ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
       }
-    }, {
-      test: /\.pug$/,
-      loader: 'pug'
-    }, {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('style-loader', 'css!sass')
-    }, {
-      test:   /\.(png|jpg|wav)$/,
-      loader: 'file?name=[path][name].[ext]'
-    }]
-
+    ]
   },
-
+  resolve: {
+    alias: {
+      'assets': path.resolve(__dirname, './src/assets/')
+    },
+    extensions: ['*', '.js', '.json']
+  },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.pug'
+    })
+  ],
+  devServer: {
+    overlay: {
+      warnings: false,
+      errors: true
+    },
+    stats: 'errors-only',
+    publicPath: '/'
+  },
+  devtool: '#eval-source-map'
+};
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map';
+  module.exports.plugins = module.exports.plugins.concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
     new ExtractTextPlugin('style.css', {
+      filename: 'style.css',
       allChunks: true
     }),
-    new HtmlWebpackPlugin({
-      template: './index.pug'
-    }),
-  ]
-};
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
+}
