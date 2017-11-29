@@ -6,18 +6,9 @@ module.exports = {
   'plugins': [
     'html'
   ],
-  'extends': 'airbnb-base',
-  'settings': {
-    'import/resolver': {
-      'webpack': {
-        'config': 'webpack.config.js'
-      }
-    }
-  },
-  'rules': {
-    'import/extensions': ['error', 'always', {
-      'js': 'never'
-    }],
-    'comma-dangle': ['error', 'never']
+  'extends': 'standard',
+  rules: {
+    'semi': 0,
+    'space-before-function-paren': 0
   }
 };
