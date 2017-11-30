@@ -1,15 +1,19 @@
 const position = {};
-let cursor;
+const cursor = {};
 let image;
 let angle = 0;
 const speed = 35;
 
-export function init({ canvasCursor, assets }) {
-  cursor = canvasCursor;
-  position.x = cursor.x;
-  position.y = cursor.y;
-  image = assets.raccoon;
-  cursor.image = assets.cookie;
+export function init({ canvasSize, assets }) {
+  position.x = cursor.x = canvasSize.width / 2;
+  position.y = cursor.y = canvasSize.height / 2;
+  image = assets.find(asset => asset.name === 'raccoon').image;
+  cursor.image = assets.find(asset => asset.name === 'cookie').image;
+
+  document.addEventListener('mousemove', event => {
+    cursor.x = event.clientX;
+    cursor.y = event.clientY;
+  });
 }
 
 export function update() {
@@ -32,9 +36,10 @@ export function render(ctx) {
   ctx.translate(posX, posY);
   ctx.rotate(angle);
   ctx.drawImage(image, -(image.width / 2), -(image.height / 2));
-  ctx.drawImage(cursor.image, cursor.x - 10, cursor.y - 10);
   ctx.fillStyle = '#c51244';
   ctx.fillRect(-5, -5, 10, 10);
 
   ctx.restore();
+
+  ctx.drawImage(cursor.image, cursor.x - 10, cursor.y - 10);
 }
