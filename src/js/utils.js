@@ -14,7 +14,7 @@ function loadImage({ src, name }) {
   return new Promise((resolve, reject) => {
     const image = new Image();
     image.src = src;
-    image.onload = () => resolve({ [name]: image });
+    image.onload = () => resolve({ name, image });
     image.onerror = err => reject(err);
   });
 }
