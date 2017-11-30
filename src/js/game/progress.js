@@ -22,7 +22,8 @@ export function init() {
 }
 
 export function update() {
-  scoreEl.innerHTML = score++;
+  score += 0.01;
+  scoreEl.innerHTML = Math.floor(score);
 }
 
 export function showModalScore() {
