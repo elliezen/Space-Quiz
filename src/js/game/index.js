@@ -16,28 +16,21 @@ const [
   '.game-level',
   '.canvas-block__canvas'
 ]);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 const ctx = canvas.getContext('2d');
-const cursor = {
-  x: canvas.width / 2,
-  y: canvas.height / 2
-};
 let loop;
 
 export default function initGame(assets) {
   const canvasSize = {
-    canvasWidth: canvas.width,
-    canvasHeight: canvas.height
+    width: canvas.width,
+    height: canvas.height
   };
 
   starfield.init(canvasSize);
-  player.init({ canvasCursor: cursor, assets });
+  player.init({ canvasSize, assets });
   quiz.init({ quizData: data, canvasSize });
   progress.init();
-
-  canvas.addEventListener('mousemove', event => {
-    cursor.x = event.clientX;
-    cursor.y = event.clientY;
-  });
 }
 
 function startGame() {
@@ -77,13 +70,16 @@ addClickEvent('.btn-play', () => {
 
   // count starting
   const timeEl = getElement('.game-level__start-count');
+  timeEl.style.display = 'block';
   let timer = 3;
   let timerId = setTimeout(function countdown() {
-    if (timer < 0) {
+    if (timer === 0) {
       clearTimeout(timerId);
+      timeEl.style.display = 'none';
+      timeEl.innerHTML = '';
       startGame();
     } else {
-      timeEl.innerHTML = timer--;
+      timeEl.innerHTML = --timer;
       timerId = setTimeout(countdown, 1000);
     }
   }, 1000);
